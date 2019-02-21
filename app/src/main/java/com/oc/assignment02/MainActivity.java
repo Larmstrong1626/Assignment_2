@@ -1,3 +1,4 @@
+//Main Activity
 package com.oc.assignment02;
 
 import android.app.Activity;
