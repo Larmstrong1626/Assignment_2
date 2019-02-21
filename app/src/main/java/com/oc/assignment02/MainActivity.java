@@ -8,7 +8,7 @@
  API 23
 
  **************/
-package com.oc.assignment_1;
+package com.oc.assignment02;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -28,51 +28,36 @@ public class MainActivity extends Activity implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button more_btn = findViewById(R.id.more_btn);
-        more_btn.setOnClickListener(this);
 
-        Button play_wild = findViewById(R.id.play_btn);
-        play_wild.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                playWild();
-            }
-        });
-
-        Button play_not = findViewById(R.id.play_btn2);
-        play_not.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                playNot();
-            }
-        });
 
 
     }
 
     @Override
     public void onClick(View v) {
-        if(v.getId()==R.id.more_btn) {
-            Uri my_link = Uri.parse("https://en.wikipedia.org/wiki/Tic-tac-toe_variants");
-            Intent intent = new Intent(Intent.ACTION_VIEW, my_link);
-            startActivity(intent);
-        }
+        //if(v.getId()==R.id.more_btn) {
+           // Uri my_link = Uri.parse("https://en.wikipedia.org/wiki/Tic-tac-toe_variants");
+            //Intent intent = new Intent(Intent.ACTION_VIEW, my_link);
+            //startActivity(intent);
+        //}
 
     }
     public void playWild(){
-        Intent intent = new Intent(getApplicationContext(),
-                PlayWildTicTacToe.class);
-        startActivity(intent);
+       // Intent intent = new Intent(getApplicationContext(),
+       //         PlayWildTicTacToe.class);
+        //startActivity(intent);
     }
 
     public void playNot(){
-        Intent intent = new Intent(getApplicationContext(),
-                NotaktoActivity.class);
-        startActivity(intent);
+       // Intent intent = new Intent(getApplicationContext(),
+         //       NotaktoActivity.class);
+        //startActivity(intent);
     }
 
     public void about(View view)
     {
-        Intent i = new Intent(getApplicationContext(),AboutActivity.class);
-        startActivity(i);
+        //Intent i = new Intent(getApplicationContext(),AboutActivity.class);
+        //startActivity(i);
     }
 
 
