@@ -133,6 +133,7 @@
                 android:background="@drawable/buttons"
 
 
+                android:text="About the app"
                 android:textColor="@android:color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

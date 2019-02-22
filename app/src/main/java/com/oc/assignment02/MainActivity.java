@@ -28,10 +28,18 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Button play_original = findViewById(R.id.play_btn);
         play_original.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 playOriginal();
+            }
+        });
+
+        Button about = findViewById(R.id.about_btn);
+        about.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                about();
             }
         });
 
@@ -43,6 +51,11 @@ public class MainActivity extends Activity {
        Intent intent = new Intent(getApplicationContext(),
                 OriginalSimon.class);
         startActivity(intent);
+    }
+    public void about()
+    {
+        Intent i = new Intent(getApplicationContext(),AboutActivity.class);
+        startActivity(i);
     }
 
 
