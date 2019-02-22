@@ -31,6 +31,7 @@
                 android:layout_marginTop="8dp"
 
 
+                android:text="Welcome to Simon Variations"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -46,8 +47,9 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="32dp"
                 android:background="@drawable/buttons"
-                android:onClick="playOriginal"
 
+
+                android:text="Play The Original"
                 android:textColor="@android:color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -130,7 +132,7 @@
                 android:layout_marginTop="32dp"
                 android:background="@drawable/buttons"
 
-                android:onClick="about"
+
                 android:textColor="@android:color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

@@ -19,7 +19,7 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 
-public class MainActivity extends Activity implements View.OnClickListener{
+public class MainActivity extends Activity {
 
 
 
@@ -28,37 +28,24 @@ public class MainActivity extends Activity implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Button play_original = findViewById(R.id.play_btn);
+        play_original.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                playOriginal();
+            }
+        });
 
 
 
     }
 
-    @Override
-    public void onClick(View v) {
-        //if(v.getId()==R.id.more_btn) {
-           // Uri my_link = Uri.parse("https://en.wikipedia.org/wiki/Tic-tac-toe_variants");
-            //Intent intent = new Intent(Intent.ACTION_VIEW, my_link);
-            //startActivity(intent);
-        //}
-
-    }
-    public void playWild(){
-       // Intent intent = new Intent(getApplicationContext(),
-       //         PlayWildTicTacToe.class);
-        //startActivity(intent);
-    }
-
-    public void playOriginal(View view){
+    public void playOriginal(){
        Intent intent = new Intent(getApplicationContext(),
                 OriginalSimon.class);
         startActivity(intent);
     }
 
-    public void about(View view)
-    {
-        Intent i = new Intent(getApplicationContext(),AboutActivity.class);
-        startActivity(i);
-    }
+
 
 
 

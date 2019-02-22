@@ -7,7 +7,7 @@
     tools:context=".OriginalSimon">
 
     <Button
-        android:id="@+id/buttontl"
+        android:id="@+id/button_tl"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginEnd="8dp"
@@ -17,30 +17,30 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/buttontr"
+        android:id="@+id/button_tr"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginStart="8dp"
         android:background="@drawable/buttons_tr"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toTopOf="@+id/buttontl" />
+        app:layout_constraintTop_toTopOf="@+id/button_tl" />
 
     <Button
-        android:id="@+id/buttonbl"
+        android:id="@+id/button_bl"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/buttons_bl"
-        app:layout_constraintEnd_toEndOf="@+id/buttontl"
-        app:layout_constraintTop_toBottomOf="@+id/buttontl" />
+        app:layout_constraintEnd_toEndOf="@+id/button_tl"
+        app:layout_constraintTop_toBottomOf="@+id/button_tl" />
 
     <Button
-        android:id="@+id/buttonbr"
+        android:id="@+id/button_br"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:background="@drawable/buttons_br"
-        app:layout_constraintStart_toStartOf="@+id/buttontr"
-        app:layout_constraintTop_toTopOf="@+id/buttonbl" />
+        app:layout_constraintStart_toStartOf="@+id/button_tr"
+        app:layout_constraintTop_toTopOf="@+id/button_bl" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline2"
