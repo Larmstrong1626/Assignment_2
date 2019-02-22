@@ -11,6 +11,7 @@
 
 package com.oc.assignment02;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.MotionEvent;
@@ -41,8 +42,35 @@ public class OriginalSimon extends Activity {
 
         @Override
         public void onClick(View v) {
-
+            playSound(v.getId());
         }
+    }
+
+    private void playSound(int id) {
+        //function that play sound according to sound ID
+        int audioRes = 0;
+        switch (id) {
+            case R.id.button_tl:
+                audioRes = R.raw.one;
+                break;
+            case R.id.button_tr:
+                audioRes = R.raw.two;
+                break;
+            case R.id.button_bl:
+                audioRes = R.raw.three;
+                break;
+            case R.id.button_br:
+                audioRes = R.raw.four;
+                break;
+        }
+        MediaPlayer p = MediaPlayer.create(this, audioRes);
+        p.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                mp.release();
+            }
+        });
+        p.start();
     }
 
 }
