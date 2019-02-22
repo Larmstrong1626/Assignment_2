@@ -1,6 +1,6 @@
 /*************
  Developer: Robert Armstrong/Justin Duff
- App: Assignment_1
+ App: Assignment_2
  MainActivity.java
  Tested on Samsung Galaxy 5
  5.1"x2.85"
@@ -48,10 +48,10 @@ public class MainActivity extends Activity implements View.OnClickListener{
         //startActivity(intent);
     }
 
-    public void playNot(){
-       // Intent intent = new Intent(getApplicationContext(),
-         //       NotaktoActivity.class);
-        //startActivity(intent);
+    public void playOriginal(View view){
+       Intent intent = new Intent(getApplicationContext(),
+                OriginalSimon.class);
+        startActivity(intent);
     }
 
     public void about(View view)

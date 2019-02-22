@@ -18,7 +18,10 @@
         </activity>
         <activity
             android:name=".AboutActivity"
-            android:label="@string/title_activity_about"></activity>
+            android:label="@string/title_activity_about" />
+        <activity
+            android:name=".OriginalSimon"
+            android:label="@string/title_activity_original_simon"></activity>
     </application>
 
 </manifest>
