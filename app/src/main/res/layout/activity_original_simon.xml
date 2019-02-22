@@ -30,6 +30,7 @@
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginTop="8dp"
+        android:background="@drawable/buttons_bl"
         app:layout_constraintEnd_toEndOf="@+id/buttontl"
         app:layout_constraintTop_toBottomOf="@+id/buttontl" />
 
@@ -37,6 +38,7 @@
         android:id="@+id/buttonbr"
         android:layout_width="150dp"
         android:layout_height="150dp"
+        android:background="@drawable/buttons_br"
         app:layout_constraintStart_toStartOf="@+id/buttontr"
         app:layout_constraintTop_toTopOf="@+id/buttonbl" />
 
