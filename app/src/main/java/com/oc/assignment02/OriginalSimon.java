@@ -32,7 +32,7 @@ public class OriginalSimon extends Activity {
         bottomLeft.setOnClickListener(new MyClickListener());
         Button bottomRight = (Button) findViewById(R.id.button_br);
         bottomRight.setOnClickListener(new MyClickListener());
-        
+
 
     }
 //Implement button listener
