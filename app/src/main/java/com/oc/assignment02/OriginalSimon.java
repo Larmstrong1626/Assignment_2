@@ -11,16 +11,23 @@
 
 package com.oc.assignment02;
 
+import android.content.Context;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.app.Activity;
+import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 
 public class OriginalSimon extends Activity {
 
-
+    public static final int S1 = R.raw.one;
+    public static final int S2 = R.raw.two;
+    public static final int S3 = R.raw.three;
+    public static final int S4 = R.raw.four;
+    final Handler handler = new Handler();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,18 +43,22 @@ public class OriginalSimon extends Activity {
 
 
     }
+
 //Implement button listener
     public class MyClickListener implements View.OnClickListener{
 
 
         @Override
         public void onClick(View v) {
-            playSound(v.getId());
+           playSound(v.getId());
+            //xorMyColor(v);
+            ButtonOpacity newopacity=new ButtonOpacity(handler,v);
+            newopacity.makeOpaque(handler,v);
         }
     }
 
     private void playSound(int id) {
-        //function that play sound according to sound ID
+
         int audioRes = 0;
         switch (id) {
             case R.id.button_tl:
@@ -72,5 +83,6 @@ public class OriginalSimon extends Activity {
         });
         p.start();
     }
+
 
 }
