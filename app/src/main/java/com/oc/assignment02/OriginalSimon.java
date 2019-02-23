@@ -38,6 +38,7 @@ public class OriginalSimon extends Activity {
     private Set<Integer> soundsLoaded;
     final int MAX_LENGTH = 1000;
     int moves_array[] = new int[MAX_LENGTH];
+    boolean gameEnabled=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,13 +48,91 @@ public class OriginalSimon extends Activity {
 
         setContentView(R.layout.activity_original_simon);
 
+        Button play_game = findViewById(R.id.new_game);
+        play_game.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                playSimon();
+            }
+        });
+
+
     }
+    public void playSimon(){
+        gameEnabled=true;
+        if(gameEnabled){
+            AudioAttributes.Builder attrBuilder = new AudioAttributes.Builder();
+            attrBuilder.setUsage(AudioAttributes.USAGE_GAME);
+
+            SoundPool.Builder spBuilder = new SoundPool.Builder();
+            spBuilder.setAudioAttributes(attrBuilder.build());
+            spBuilder.setMaxStreams(1);
+            soundPool = spBuilder.build();
+
+            soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+                @Override
+                public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+                    if (status == 0) { // success
+                        soundsLoaded.add(sampleId);
+                        Log.i("SOUND", "Sound loaded " + sampleId);
+
+                    } else {
+                        Log.i("SOUND", "Error cannot load sound status = " + status);
+                    }
+                }
+            });
+            final int oneId = soundPool.load(this, R.raw.one, 1);
+            Button tlbutton=findViewById(R.id.button_tl);
+            tlbutton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    SoundsClass my_sound = new SoundsClass(soundPool, oneId);
+                    my_sound.play();
+                    ButtonOpacity newopacity = new ButtonOpacity(handler, v);
+                    newopacity.makeOpaque(handler, v);
+                }
+            });
+
+
+            final int twoId = soundPool.load(this, R.raw.two, 1);
+            findViewById(R.id.button_tr).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    SoundsClass my_sound = new SoundsClass(soundPool, twoId);
+                    my_sound.play();
+                    ButtonOpacity newopacity = new ButtonOpacity(handler, v);
+                    newopacity.makeOpaque(handler, v);
+                }
+            });
+            final int threeId = soundPool.load(this, R.raw.three, 1);
+            findViewById(R.id.button_bl).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    SoundsClass my_sound = new SoundsClass(soundPool, threeId);
+                    my_sound.play();
+                    ButtonOpacity newopacity = new ButtonOpacity(handler, v);
+                    newopacity.makeOpaque(handler, v);
+                }
+            });
+            final int fourId = soundPool.load(this, R.raw.four, 1);
+            findViewById(R.id.button_br).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    SoundsClass my_sound = new SoundsClass(soundPool, fourId);
+                    my_sound.play();
+                    ButtonOpacity newopacity = new ButtonOpacity(handler, v);
+                    newopacity.makeOpaque(handler, v);
+                }
+            });}
+
+    }
+
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        AudioAttributes.Builder attrBuilder = new AudioAttributes.Builder();
+        /*AudioAttributes.Builder attrBuilder = new AudioAttributes.Builder();
         attrBuilder.setUsage(AudioAttributes.USAGE_GAME);
 
         SoundPool.Builder spBuilder = new SoundPool.Builder();
@@ -74,7 +153,8 @@ public class OriginalSimon extends Activity {
             }
         });
         final int oneId = soundPool.load(this, R.raw.one, 1);
-        findViewById(R.id.button_tl).setOnClickListener(new View.OnClickListener() {
+        Button tlbutton=findViewById(R.id.button_tl);
+        tlbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SoundsClass my_sound = new SoundsClass(soundPool, oneId);
@@ -115,7 +195,7 @@ public class OriginalSimon extends Activity {
                 ButtonOpacity newopacity = new ButtonOpacity(handler, v);
                 newopacity.makeOpaque(handler, v);
             }
-        });
+        });*/
     }
 
     @Override
