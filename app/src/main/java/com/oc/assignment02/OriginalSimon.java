@@ -39,6 +39,9 @@ public class OriginalSimon extends Activity {
     final int MAX_LENGTH = 1000;
     int moves_array[] = new int[MAX_LENGTH];
     boolean gameEnabled=false;
+    boolean AI_turn=true;
+    boolean user_turn=false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,13 +54,15 @@ public class OriginalSimon extends Activity {
         Button play_game = findViewById(R.id.new_game);
         play_game.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                playSimon();
+                enableSimon();
             }
         });
 
 
     }
-    public void playSimon(){
+
+
+    public void enableSimon(){
         gameEnabled=true;
         if(gameEnabled){
             AudioAttributes.Builder attrBuilder = new AudioAttributes.Builder();
@@ -81,7 +86,7 @@ public class OriginalSimon extends Activity {
                 }
             });
             final int oneId = soundPool.load(this, R.raw.one, 1);
-            Button tlbutton=findViewById(R.id.button_tl);
+            final Button tlbutton=findViewById(R.id.button_tl);
             tlbutton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -94,17 +99,20 @@ public class OriginalSimon extends Activity {
 
 
             final int twoId = soundPool.load(this, R.raw.two, 1);
-            findViewById(R.id.button_tr).setOnClickListener(new View.OnClickListener() {
+            final Button trbutton=findViewById(R.id.button_tr);
+            trbutton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     SoundsClass my_sound = new SoundsClass(soundPool, twoId);
                     my_sound.play();
                     ButtonOpacity newopacity = new ButtonOpacity(handler, v);
                     newopacity.makeOpaque(handler, v);
+
                 }
             });
             final int threeId = soundPool.load(this, R.raw.three, 1);
-            findViewById(R.id.button_bl).setOnClickListener(new View.OnClickListener() {
+            final Button blbutton=findViewById(R.id.button_bl);
+            blbutton.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
 
@@ -115,7 +123,8 @@ public class OriginalSimon extends Activity {
                 }
             });
             final int fourId = soundPool.load(this, R.raw.four, 1);
-            findViewById(R.id.button_br).setOnClickListener(new View.OnClickListener() {
+            final Button brbutton=findViewById(R.id.button_br);
+            brbutton.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
                     SoundsClass my_sound = new SoundsClass(soundPool, fourId);
