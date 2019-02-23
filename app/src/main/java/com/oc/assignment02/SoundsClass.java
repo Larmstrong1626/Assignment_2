@@ -13,13 +13,9 @@ public class SoundsClass{
 
 
     public void play() {
-        //soundPool.play(soundId, volume, volume, 0, 0, 1);
+
         soundPool.play(soundId, 1.0f, 1.0f, 0, 0, 1.0f);
 
     }
 
-
-    public void dispose() {
-        soundPool.unload(soundId);
-    }
 }

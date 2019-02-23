@@ -20,8 +20,6 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.os.Handler;
 import android.util.Log;
-import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -38,6 +36,8 @@ public class OriginalSimon extends Activity {
     final Handler handler = new Handler();
     private SoundPool soundPool;
     private Set<Integer> soundsLoaded;
+    final int MAX_LENGTH = 1000;
+    int moves_array[] = new int[MAX_LENGTH];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
