@@ -38,6 +38,8 @@ public class OriginalSimon extends Activity {
     final Handler handler = new Handler();
     private SoundPool soundPool;
     private Set<Integer> soundsLoaded;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,11 +52,9 @@ public class OriginalSimon extends Activity {
 
 
     private void playSound(int id) {
-
-        if (soundsLoaded.contains(id)) {
-            soundPool.play(id, 1.0f, 1.0f, 0, 0, 1.0f);
-
-        }
+        int my_id = id;
+        SoundsClass my_sound = new SoundsClass(soundPool, my_id);
+        my_sound.play();
 
 
     }
@@ -88,8 +88,8 @@ public class OriginalSimon extends Activity {
             @Override
             public void onClick(View v) {
                 playSound(oneId);
-                ButtonOpacity newopacity=new ButtonOpacity(handler,v);
-                newopacity.makeOpaque(handler,v);
+                ButtonOpacity newopacity = new ButtonOpacity(handler, v);
+                newopacity.makeOpaque(handler, v);
             }
         });
 
@@ -99,8 +99,8 @@ public class OriginalSimon extends Activity {
             @Override
             public void onClick(View v) {
                 playSound(twoId);
-                ButtonOpacity newopacity=new ButtonOpacity(handler,v);
-                newopacity.makeOpaque(handler,v);
+                ButtonOpacity newopacity = new ButtonOpacity(handler, v);
+                newopacity.makeOpaque(handler, v);
             }
         });
         final int threeId = soundPool.load(this, R.raw.three, 1);
@@ -108,8 +108,8 @@ public class OriginalSimon extends Activity {
             @Override
             public void onClick(View v) {
                 playSound(threeId);
-                ButtonOpacity newopacity=new ButtonOpacity(handler,v);
-                newopacity.makeOpaque(handler,v);
+                ButtonOpacity newopacity = new ButtonOpacity(handler, v);
+                newopacity.makeOpaque(handler, v);
             }
         });
         final int fourId = soundPool.load(this, R.raw.four, 1);
@@ -117,11 +117,10 @@ public class OriginalSimon extends Activity {
             @Override
             public void onClick(View v) {
                 playSound(fourId);
-                ButtonOpacity newopacity=new ButtonOpacity(handler,v);
-                newopacity.makeOpaque(handler,v);
+                ButtonOpacity newopacity = new ButtonOpacity(handler, v);
+                newopacity.makeOpaque(handler, v);
             }
         });
-
 
 
     }
