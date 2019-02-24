@@ -11,211 +11,66 @@
 
 package com.oc.assignment02;
 
-import android.content.Context;
-import android.content.Intent;
-import android.media.AudioAttributes;
 import android.media.MediaPlayer;
-import android.media.SoundPool;
 import android.os.Bundle;
 import android.app.Activity;
-import android.os.Handler;
-import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
-
-import java.util.HashSet;
-import java.util.Set;
 
 public class OriginalSimon extends Activity {
-
-    public static final int S1 = R.raw.one;
-    public static final int S2 = R.raw.two;
-    public static final int S3 = R.raw.three;
-    public static final int S4 = R.raw.four;
-    final Handler handler = new Handler();
-    private SoundPool soundPool;
-    private Set<Integer> soundsLoaded;
-    final int MAX_LENGTH = 1000;
-    int moves_array[] = new int[MAX_LENGTH];
-    boolean gameEnabled=false;
-    boolean AI_turn=true;
-    boolean user_turn=false;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        soundsLoaded = new HashSet<Integer>();
-
         setContentView(R.layout.activity_original_simon);
-
-        Button play_game = findViewById(R.id.new_game);
-        play_game.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                enableSimon();
-            }
-        });
+        Button topLeft = (Button) findViewById(R.id.button_tl);
+        topLeft.setOnClickListener(new MyClickListener());
+        Button topRight = (Button) findViewById(R.id.button_tr);
+        topRight.setOnClickListener(new MyClickListener());
+        Button bottomLeft = (Button) findViewById(R.id.button_bl);
+        bottomLeft.setOnClickListener(new MyClickListener());
+        Button bottomRight = (Button) findViewById(R.id.button_br);
+        bottomRight.setOnClickListener(new MyClickListener());
 
 
     }
+    //Implement button listener
+    public class MyClickListener implements View.OnClickListener{
 
 
-    public void enableSimon(){
-        gameEnabled=true;
-        if(gameEnabled){
-            AudioAttributes.Builder attrBuilder = new AudioAttributes.Builder();
-            attrBuilder.setUsage(AudioAttributes.USAGE_GAME);
-
-            SoundPool.Builder spBuilder = new SoundPool.Builder();
-            spBuilder.setAudioAttributes(attrBuilder.build());
-            spBuilder.setMaxStreams(1);
-            soundPool = spBuilder.build();
-
-            soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
-                @Override
-                public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
-                    if (status == 0) { // success
-                        soundsLoaded.add(sampleId);
-                        Log.i("SOUND", "Sound loaded " + sampleId);
-
-                    } else {
-                        Log.i("SOUND", "Error cannot load sound status = " + status);
-                    }
-                }
-            });
-            final int oneId = soundPool.load(this, R.raw.one, 1);
-            final Button tlbutton=findViewById(R.id.button_tl);
-            tlbutton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    SoundsClass my_sound = new SoundsClass(soundPool, oneId);
-                    my_sound.play();
-                    ButtonOpacity newopacity = new ButtonOpacity(handler, v);
-                    newopacity.makeOpaque(handler, v);
-                }
-            });
-
-
-            final int twoId = soundPool.load(this, R.raw.two, 1);
-            final Button trbutton=findViewById(R.id.button_tr);
-            trbutton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    SoundsClass my_sound = new SoundsClass(soundPool, twoId);
-                    my_sound.play();
-                    ButtonOpacity newopacity = new ButtonOpacity(handler, v);
-                    newopacity.makeOpaque(handler, v);
-
-                }
-            });
-            final int threeId = soundPool.load(this, R.raw.three, 1);
-            final Button blbutton=findViewById(R.id.button_bl);
-            blbutton.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View v) {
-
-                    SoundsClass my_sound = new SoundsClass(soundPool, threeId);
-                    my_sound.play();
-                    ButtonOpacity newopacity = new ButtonOpacity(handler, v);
-                    newopacity.makeOpaque(handler, v);
-                }
-            });
-            final int fourId = soundPool.load(this, R.raw.four, 1);
-            final Button brbutton=findViewById(R.id.button_br);
-            brbutton.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View v) {
-                    SoundsClass my_sound = new SoundsClass(soundPool, fourId);
-                    my_sound.play();
-                    ButtonOpacity newopacity = new ButtonOpacity(handler, v);
-                    newopacity.makeOpaque(handler, v);
-                }
-            });}
-
-    }
-
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        /*AudioAttributes.Builder attrBuilder = new AudioAttributes.Builder();
-        attrBuilder.setUsage(AudioAttributes.USAGE_GAME);
-
-        SoundPool.Builder spBuilder = new SoundPool.Builder();
-        spBuilder.setAudioAttributes(attrBuilder.build());
-        spBuilder.setMaxStreams(1);
-        soundPool = spBuilder.build();
-
-        soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
-            @Override
-            public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
-                if (status == 0) { // success
-                    soundsLoaded.add(sampleId);
-                    Log.i("SOUND", "Sound loaded " + sampleId);
-
-                } else {
-                    Log.i("SOUND", "Error cannot load sound status = " + status);
-                }
-            }
-        });
-        final int oneId = soundPool.load(this, R.raw.one, 1);
-        Button tlbutton=findViewById(R.id.button_tl);
-        tlbutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SoundsClass my_sound = new SoundsClass(soundPool, oneId);
-                my_sound.play();
-                ButtonOpacity newopacity = new ButtonOpacity(handler, v);
-                newopacity.makeOpaque(handler, v);
-            }
-        });
-
-
-        final int twoId = soundPool.load(this, R.raw.two, 1);
-        findViewById(R.id.button_tr).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SoundsClass my_sound = new SoundsClass(soundPool, twoId);
-                my_sound.play();
-                ButtonOpacity newopacity = new ButtonOpacity(handler, v);
-                newopacity.makeOpaque(handler, v);
-            }
-        });
-        final int threeId = soundPool.load(this, R.raw.three, 1);
-        findViewById(R.id.button_bl).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                SoundsClass my_sound = new SoundsClass(soundPool, threeId);
-                my_sound.play();
-                ButtonOpacity newopacity = new ButtonOpacity(handler, v);
-                newopacity.makeOpaque(handler, v);
-            }
-        });
-        final int fourId = soundPool.load(this, R.raw.four, 1);
-        findViewById(R.id.button_br).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SoundsClass my_sound = new SoundsClass(soundPool, fourId);
-                my_sound.play();
-                ButtonOpacity newopacity = new ButtonOpacity(handler, v);
-                newopacity.makeOpaque(handler, v);
-            }
-        });*/
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if (soundPool != null) {
-            soundPool.release();
-            soundPool = null;
-            soundsLoaded.clear();
+        @Override
+        public void onClick(View v) {
+            playSound(v.getId());
         }
     }
 
+    private void playSound(int id) {
+        //function that play sound according to sound ID
+        int audioRes = 0;
+        switch (id) {
+            case R.id.button_tl:
+                audioRes = R.raw.one;
+                break;
+            case R.id.button_tr:
+                audioRes = R.raw.two;
+                break;
+            case R.id.button_bl:
+                audioRes = R.raw.three;
+                break;
+            case R.id.button_br:
+                audioRes = R.raw.four;
+                break;
+        }
+        MediaPlayer p = MediaPlayer.create(this, audioRes);
+        p.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                mp.release();
+            }
+        });
+        p.start();
+    }
 
 }
