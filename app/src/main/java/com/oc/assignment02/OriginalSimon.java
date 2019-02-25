@@ -42,11 +42,12 @@ public class OriginalSimon extends Activity {
     private Set<Integer> soundsLoaded;
     final int MAX_LENGTH = 1000;
     int AI_moves[] = new int[MAX_LENGTH];
-    int human_moves[]=new int[MAX_LENGTH];
+    int human_moves[] = new int[MAX_LENGTH];
     Random r = new Random();
+    int moves = 0;
     public SoundPool sp = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
-    public int tl_sound,tr_sound,bl_sound,br_sound;
-
+    public int tl_sound, tr_sound, bl_sound, br_sound;
+    boolean AI_Turn = true;
     //final int fourId = soundPool.load(this, R.raw.four, 1);
 
 
@@ -61,49 +62,26 @@ public class OriginalSimon extends Activity {
         soundsLoaded = new HashSet<Integer>();
 
         setContentView(R.layout.activity_original_simon);
-        Play_Simon();
 
     }
 
 
     private void playSound(int id) {
         int my_id = id;
-        SoundsClass my_sound = new SoundsClass(soundPool, my_id);
-        my_sound.play();
+        sp.play(my_id, 1, 1, 1, 0, 1f);
 
 
     }
+
 
     @Override
     protected void onResume() {
         super.onResume();
 
-       /* AudioAttributes.Builder attrBuilder = new AudioAttributes.Builder();
-        attrBuilder.setUsage(AudioAttributes.USAGE_GAME);
-
-        SoundPool.Builder spBuilder = new SoundPool.Builder();
-        spBuilder.setAudioAttributes(attrBuilder.build());
-        spBuilder.setMaxStreams(1);
-        //soundPool = spBuilder.build();
-
-        soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
-            @Override
-            public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
-                if (status == 0) { // success
-                    soundsLoaded.add(sampleId);
-                    Log.i("SOUND", "Sound loaded " + sampleId);
-
-                } else {
-                    Log.i("SOUND", "Error cannot load sound status = " + status);
-                }
-            }
-        });
-        final int oneId = soundPool.load(this, R.raw.one, 1);*/
         findViewById(R.id.button_tl).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // playSound(oneId);
-                sp.play(tl_sound,1,1,1,0,1f);
+                sp.play(tl_sound, 1, 1, 1, 0, 1f);
                 ButtonOpacity newopacity = new ButtonOpacity(handler, v);
                 newopacity.makeOpaque(handler, v);
             }
@@ -114,18 +92,17 @@ public class OriginalSimon extends Activity {
         findViewById(R.id.button_tr).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //playSound(twoId);
-                sp.play(tr_sound,1,1,1,0,1f);
+                sp.play(tr_sound, 1, 1, 1, 0, 1f);
                 ButtonOpacity newopacity = new ButtonOpacity(handler, v);
                 newopacity.makeOpaque(handler, v);
             }
         });
-      //  final int threeId = soundPool.load(this, R.raw.three, 1);
+        //  final int threeId = soundPool.load(this, R.raw.three, 1);
         findViewById(R.id.button_bl).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //playSound(threeId);
-                sp.play(bl_sound,1,1,1,0,1f);
+                sp.play(bl_sound, 1, 1, 1, 0, 1f);
                 ButtonOpacity newopacity = new ButtonOpacity(handler, v);
                 newopacity.makeOpaque(handler, v);
             }
@@ -135,7 +112,7 @@ public class OriginalSimon extends Activity {
             @Override
             public void onClick(View v) {
                 //playSound(fourId);
-                sp.play(br_sound,1,1,1,0,1f);
+                sp.play(br_sound, 1, 1, 1, 0, 1f);
                 ButtonOpacity newopacity = new ButtonOpacity(handler, v);
                 newopacity.makeOpaque(handler, v);
             }
@@ -144,15 +121,7 @@ public class OriginalSimon extends Activity {
 
     }
 
-    public void Play_Simon(){
-        appendValueToArray();
-        //sp.play(tl_sound, 1, 1, 1, 0, 1f);
 
-        //SoundsClass my_sound = new SoundsClass(soundPool, R.raw.four);
-        //my_sound.play();
-        //playSound();
-
-    }
     @Override
     protected void onPause() {
         super.onPause();
@@ -162,18 +131,8 @@ public class OriginalSimon extends Activity {
 
             soundsLoaded.clear();
         }
-    }
-    private int generateRandomNumber() {
-        return r.nextInt(4) + 1;
-    }
 
-    private void appendValueToArray() {
-        for (int i = 0; i < MAX_LENGTH; i++) {
-            if (AI_moves[i] == 0) {
-                AI_moves[i] = generateRandomNumber();
-                break;
-            }
-        }
+
     }
 
 
