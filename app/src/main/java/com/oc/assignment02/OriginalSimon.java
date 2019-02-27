@@ -17,6 +17,7 @@ import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.os.Handler;
@@ -27,7 +28,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
@@ -59,16 +62,22 @@ public class OriginalSimon extends Activity {
     int human_moves[] = new int[MAX_LENGTH];
     Random r = new Random();
     int moves = 0;
+    int roundNumber=1;
     public SoundPool sp = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
     public int tl_sound, tr_sound, bl_sound, br_sound;
     boolean AI_Turn = true;
+    public SoundsClass simon_sounds;
+    private List<Integer> AI_Choices;
 
-
+    private Computer_player pc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_original_simon);
+
+
+        AI_Choices = new ArrayList<Integer>();
 
         tl_sound = sp.load(this, R.raw.one, 1);
         tr_sound = sp.load(this, R.raw.two, 1);
@@ -87,7 +96,11 @@ public class OriginalSimon extends Activity {
         ng_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startGame();
+                //startGame();
+                if (pc == null) {
+                    pc = new Computer_player();
+                    pc.execute();
+                }
                 ng_btn.setEnabled(false);
             }
         });
@@ -165,5 +178,78 @@ public class OriginalSimon extends Activity {
 
     }
 
+    public class Computer_player extends AsyncTask<Void, Integer, Void> {
 
+        Random randomButtonGenerator = new Random();
+
+        @Override
+        protected void onPreExecute() {
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+                AI_Turn = true;
+
+
+                    int ai_choice = r.nextInt(4);
+                    AI_Choices.add(ai_choice);
+
+                    Log.i("Button", " = " + ai_choice);
+
+
+
+                    //Thread.sleep(1500);
+                    for (int i = 0; i < AI_Choices.size(); i++) {
+                        Thread.sleep(1500); // controls game speed
+                        publishProgress(AI_Choices.get(i));
+                    }
+
+
+
+            }
+            catch (InterruptedException e) {
+                Log.i("-------", "----- INTERRUPTED -----");
+            }
+            pc = null;
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            Log.i("-------", "inside onProgress Update");
+            //ButtonOpacity newopacity = new ButtonOpacity(handler, v);
+
+            //simon_sounds=new SoundsClass(soundPool,values);
+            play_sound(values[0]);
+
+
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+
+        }
+
+
+}
+
+    public void play_sound(int soundId) {
+
+        if(soundId==1){
+            soundId=tl_sound;
+        }
+        if(soundId==2){
+            soundId=tr_sound;
+        }
+        if(soundId==3){
+            soundId=bl_sound;
+        }
+        if(soundId==4){
+            soundId=br_sound;
+        }
+
+        sp.play(soundId, 1, 1, 1, 0, 1f);
+    }
 }
