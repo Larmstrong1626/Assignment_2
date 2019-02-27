@@ -221,7 +221,7 @@ public class OriginalSimon extends Activity {
             Log.i("-------", "inside onProgress Update");
             //ButtonOpacity newopacity = new ButtonOpacity(handler, v);
 
-            //simon_sounds=new SoundsClass(soundPool,values);
+
             play_sound(values[0]);
 
 
