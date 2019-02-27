@@ -244,27 +244,65 @@ public class OriginalSimon extends Activity {
 
 
 
+
         if(soundId==1){
             soundId=tl_sound;
+            sp.play(soundId, 1, 1, 1, 0, 1f);
+            tl_btn.getBackground().setAlpha(51);
+            final Runnable r = new Runnable() {
+                public void run() {
+                    tl_btn.getBackground().setAlpha(255);
+
+                }
+            };
+            handler.postDelayed(r, 300);
+
+
 
         }
         if(soundId==2){
             soundId=tr_sound;
+            sp.play(soundId, 1, 1, 1, 0, 1f);
+            br_btn.getBackground().setAlpha(51);
+            final Runnable r = new Runnable() {
+                public void run() {
+                    tr_btn.getBackground().setAlpha(255);
+
+                }
+            };
+            handler.postDelayed(r, 300);
 
 
         }
         if(soundId==3){
             soundId=bl_sound;
+            sp.play(soundId, 1, 1, 1, 0, 1f);
+            bl_btn.getBackground().setAlpha(51);
+            final Runnable r = new Runnable() {
+                public void run() {
+                    bl_btn.getBackground().setAlpha(255);
+
+                }
+            };
+            handler.postDelayed(r, 300);
 
                 }
         if(soundId==4){
             soundId=br_sound;
+            sp.play(soundId, 1, 1, 1, 0, 1f);
+            br_btn.getBackground().setAlpha(51);
+            final Runnable r = new Runnable() {
+                public void run() {
+                    br_btn.getBackground().setAlpha(255);
+
+                }
+            };
+            handler.postDelayed(r, 300);
 
 
 
         }
 
-        sp.play(soundId, 1, 1, 1, 0, 1f);
 
     }
 }
