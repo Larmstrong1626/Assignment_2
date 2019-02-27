@@ -192,8 +192,10 @@ public class OriginalSimon extends Activity {
             try {
                 AI_Turn = true;
 
+                int Max = 4;
+                int Min = 1;
 
-                    int ai_choice = r.nextInt(4);
+                    int ai_choice = r.nextInt(Max - Min  + 1) + Min ;
                     AI_Choices.add(ai_choice);
 
                     Log.i("Button", " = " + ai_choice);
@@ -202,7 +204,7 @@ public class OriginalSimon extends Activity {
 
                     //Thread.sleep(1500);
                     for (int i = 0; i < AI_Choices.size(); i++) {
-                        Thread.sleep(1500); // controls game speed
+                        Thread.sleep(300); // controls game speed
                         publishProgress(AI_Choices.get(i));
                     }
 
@@ -222,6 +224,8 @@ public class OriginalSimon extends Activity {
             //ButtonOpacity newopacity = new ButtonOpacity(handler, v);
 
 
+
+
             play_sound(values[0]);
 
 
@@ -237,19 +241,31 @@ public class OriginalSimon extends Activity {
 
     public void play_sound(int soundId) {
 
+
+
+
         if(soundId==1){
-            soundId=tl_sound;
+            //soundId=tl_sound;
+            tl_btn.performClick();
+
         }
         if(soundId==2){
-            soundId=tr_sound;
+            //soundId=tr_sound;
+            tr_btn.performClick();
+
         }
         if(soundId==3){
-            soundId=bl_sound;
-        }
+            //soundId=bl_sound;
+            bl_btn.performClick();
+                }
         if(soundId==4){
-            soundId=br_sound;
+            //soundId=br_sound;
+            br_btn.performClick();
+
+
         }
 
         sp.play(soundId, 1, 1, 1, 0, 1f);
+
     }
 }
