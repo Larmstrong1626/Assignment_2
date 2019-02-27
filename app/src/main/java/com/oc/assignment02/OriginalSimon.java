@@ -66,7 +66,7 @@ public class OriginalSimon extends Activity {
     public SoundPool sp = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
     public int tl_sound, tr_sound, bl_sound, br_sound;
     boolean AI_Turn = true;
-    public SoundsClass simon_sounds;
+
     private List<Integer> AI_Choices;
 
     private Computer_player pc;
@@ -221,7 +221,7 @@ public class OriginalSimon extends Activity {
         @Override
         protected void onProgressUpdate(Integer... values) {
             Log.i("-------", "inside onProgress Update");
-            //ButtonOpacity newopacity = new ButtonOpacity(handler, v);
+
 
 
 
@@ -245,22 +245,21 @@ public class OriginalSimon extends Activity {
 
 
         if(soundId==1){
-            //soundId=tl_sound;
-            tl_btn.performClick();
+            soundId=tl_sound;
 
         }
         if(soundId==2){
-            //soundId=tr_sound;
-            tr_btn.performClick();
+            soundId=tr_sound;
+
 
         }
         if(soundId==3){
-            //soundId=bl_sound;
-            bl_btn.performClick();
+            soundId=bl_sound;
+
                 }
         if(soundId==4){
-            //soundId=br_sound;
-            br_btn.performClick();
+            soundId=br_sound;
+
 
 
         }
