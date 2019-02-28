@@ -212,7 +212,7 @@ public class OriginalSimon extends Activity {
 
                     //Thread.sleep(1500);
                     for (int i = 0; i < AI_Choices.size(); i++) {
-                        Thread.sleep(300); // controls game speed
+                        Thread.sleep(500); // controls game speed
                         publishProgress(AI_Choices.get(i));
                     }
 
@@ -263,7 +263,7 @@ public class OriginalSimon extends Activity {
 
                 }
             };
-            handler.postDelayed(r, 300);
+            handler.postDelayed(r, 100);
 
 
 
@@ -278,7 +278,7 @@ public class OriginalSimon extends Activity {
 
                 }
             };
-            handler.postDelayed(r, 200);
+            handler.postDelayed(r, 100);
 
 
         }
@@ -292,7 +292,7 @@ public class OriginalSimon extends Activity {
 
                 }
             };
-            handler.postDelayed(r, 200);
+            handler.postDelayed(r, 100);
 
                 }
         if(soundId==4){
@@ -305,7 +305,7 @@ public class OriginalSimon extends Activity {
 
                 }
             };
-            handler.postDelayed(r, 200);
+            handler.postDelayed(r, 100);
 
 
 

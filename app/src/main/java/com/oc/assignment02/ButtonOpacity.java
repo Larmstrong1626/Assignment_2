@@ -22,6 +22,6 @@ public class ButtonOpacity {
                 v.getBackground().setAlpha(255);
             }
         };
-        handler.postDelayed(r, 300);
+        handler.postDelayed(r, 100);
     }
 }
