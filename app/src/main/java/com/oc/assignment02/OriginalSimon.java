@@ -61,8 +61,9 @@ public class OriginalSimon extends Activity {
     int AI_moves[] = new int[MAX_LENGTH];
     int human_moves[] = new int[MAX_LENGTH];
     Random r = new Random();
+    int score=0;
     int moves = 0;
-    int roundNumber=1;
+    int roundNumber = 1;
     public SoundPool sp = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
     public int tl_sound, tr_sound, bl_sound, br_sound;
     boolean AI_Turn = true;
@@ -88,7 +89,7 @@ public class OriginalSimon extends Activity {
         tr_btn = (Button) findViewById(R.id.button_tr);
         bl_btn = (Button) findViewById(R.id.button_bl);
         br_btn = (Button) findViewById(R.id.button_br);
-        ng_btn=(Button) findViewById(R.id.new_game);
+        ng_btn = (Button) findViewById(R.id.new_game);
 
 
         soundsLoaded = new HashSet<Integer>();
@@ -96,12 +97,8 @@ public class OriginalSimon extends Activity {
         ng_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //startGame();
-                if (pc == null) {
-                    pc = new Computer_player();
-                    pc.execute();
-                }
-                ng_btn.setEnabled(false);
+                startGame();
+
             }
         });
 
@@ -154,16 +151,17 @@ public class OriginalSimon extends Activity {
     }
 
 
+    public void startGame() {
 
 
-    public void startGame(){
+        if (pc == null) {
+            pc = new Computer_player();
+            pc.execute();
+        }
+        ng_btn.setEnabled(false);
 
 
     }
-
-
-
-
 
 
     @Override
@@ -199,27 +197,16 @@ public class OriginalSimon extends Activity {
         protected Void doInBackground(Void... params) {
             try {
                 AI_Turn = true;
-
                 int Max = 4;
                 int Min = 1;
-
-                    int ai_choice = r.nextInt(Max - Min  + 1) + Min ;
-                    AI_Choices.add(ai_choice);
-
-                    Log.i("Button", " = " + ai_choice);
-
-
-
-                    //Thread.sleep(1500);
-                    for (int i = 0; i < AI_Choices.size(); i++) {
-                        Thread.sleep(500); // controls game speed
-                        publishProgress(AI_Choices.get(i));
-                    }
-
-
-
-            }
-            catch (InterruptedException e) {
+                int ai_choice = r.nextInt(Max - Min + 1) + Min;
+                AI_Choices.add(ai_choice);
+                Log.i("Button", " = " + ai_choice);
+               for (int i = 0; i < AI_Choices.size(); i++) {
+                    Thread.sleep(1500);
+                    publishProgress(AI_Choices.get(i));
+                }
+            } catch (InterruptedException e) {
                 Log.i("-------", "----- INTERRUPTED -----");
             }
             pc = null;
@@ -229,9 +216,6 @@ public class OriginalSimon extends Activity {
         @Override
         protected void onProgressUpdate(Integer... values) {
             Log.i("-------", "inside onProgress Update");
-
-
-
 
 
             play_sound(values[0]);
@@ -245,16 +229,11 @@ public class OriginalSimon extends Activity {
         }
 
 
-}
+    }
 
     public void play_sound(int soundId) {
-
-
-
-
-
-        if(soundId==1){
-            soundId=tl_sound;
+        if (soundId == 1) {
+            soundId = tl_sound;
             sp.play(soundId, 1, 1, 1, 0, 1f);
             tl_btn.getBackground().setAlpha(51);
             final Runnable r = new Runnable() {
@@ -266,12 +245,11 @@ public class OriginalSimon extends Activity {
             handler.postDelayed(r, 100);
 
 
-
         }
-        if(soundId==2){
-            soundId=tr_sound;
+        if (soundId == 2) {
+            soundId = tr_sound;
             sp.play(soundId, 1, 1, 1, 0, 1f);
-            br_btn.getBackground().setAlpha(51);
+            tr_btn.getBackground().setAlpha(51);
             final Runnable r = new Runnable() {
                 public void run() {
                     tr_btn.getBackground().setAlpha(255);
@@ -282,8 +260,8 @@ public class OriginalSimon extends Activity {
 
 
         }
-        if(soundId==3){
-            soundId=bl_sound;
+        if (soundId == 3) {
+            soundId = bl_sound;
             sp.play(soundId, 1, 1, 1, 0, 1f);
             bl_btn.getBackground().setAlpha(51);
             final Runnable r = new Runnable() {
@@ -294,10 +272,11 @@ public class OriginalSimon extends Activity {
             };
             handler.postDelayed(r, 100);
 
-                }
-        if(soundId==4){
-            soundId=br_sound;
+        }
+        if (soundId == 4) {
+            soundId = br_sound;
             sp.play(soundId, 1, 1, 1, 0, 1f);
+
             br_btn.getBackground().setAlpha(51);
             final Runnable r = new Runnable() {
                 public void run() {
@@ -306,7 +285,6 @@ public class OriginalSimon extends Activity {
                 }
             };
             handler.postDelayed(r, 100);
-
 
 
         }
