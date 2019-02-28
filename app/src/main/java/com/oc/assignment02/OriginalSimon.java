@@ -111,6 +111,8 @@ public class OriginalSimon extends Activity {
                 sp.play(tl_sound, 1, 1, 1, 0, 1f);
                 ButtonOpacity newopacity = new ButtonOpacity(handler, v);
                 newopacity.makeOpaque(handler, v);
+                pc = new Computer_player();
+                pc.execute();
             }
         });
 
@@ -120,6 +122,8 @@ public class OriginalSimon extends Activity {
                 sp.play(tr_sound, 1, 1, 1, 0, 1f);
                 ButtonOpacity newopacity = new ButtonOpacity(handler, v);
                 newopacity.makeOpaque(handler, v);
+                pc = new Computer_player();
+                pc.execute();
             }
         });
 
@@ -130,6 +134,8 @@ public class OriginalSimon extends Activity {
                 sp.play(bl_sound, 1, 1, 1, 0, 1f);
                 ButtonOpacity newopacity = new ButtonOpacity(handler, v);
                 newopacity.makeOpaque(handler, v);
+                pc = new Computer_player();
+                pc.execute();
             }
         });
 
@@ -140,6 +146,8 @@ public class OriginalSimon extends Activity {
                 sp.play(br_sound, 1, 1, 1, 0, 1f);
                 ButtonOpacity newopacity = new ButtonOpacity(handler, v);
                 newopacity.makeOpaque(handler, v);
+                pc = new Computer_player();
+                pc.execute();
             }
         });
 
@@ -270,7 +278,7 @@ public class OriginalSimon extends Activity {
 
                 }
             };
-            handler.postDelayed(r, 300);
+            handler.postDelayed(r, 200);
 
 
         }
@@ -284,7 +292,7 @@ public class OriginalSimon extends Activity {
 
                 }
             };
-            handler.postDelayed(r, 300);
+            handler.postDelayed(r, 200);
 
                 }
         if(soundId==4){
@@ -297,7 +305,7 @@ public class OriginalSimon extends Activity {
 
                 }
             };
-            handler.postDelayed(r, 300);
+            handler.postDelayed(r, 200);
 
 
 
