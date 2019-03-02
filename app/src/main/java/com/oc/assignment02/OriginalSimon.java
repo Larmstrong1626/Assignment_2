@@ -254,6 +254,11 @@ public class OriginalSimon extends Activity {
         @Override
         protected void onPreExecute() {
             turn.setText("Simon is up");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             tl_btn.setClickable(false);
             tr_btn.setClickable(false);
             bl_btn.setClickable(false);
