@@ -63,7 +63,7 @@ public class OriginalSimon extends Activity {
     final Handler handler = new Handler();
     private SoundPool soundPool;
     private Set<Integer> soundsLoaded;
-    final int MAX_LENGTH = 1000;
+    final int MAX_LENGTH = 31;
 
     int human_move;
     Random r = new Random();
@@ -215,6 +215,10 @@ public class OriginalSimon extends Activity {
             AI_Turn = false;
             AI_Choices.clear();
             Human_Choices.clear();
+            tl_btn.setClickable(false);
+            tr_btn.setClickable(false);
+            bl_btn.setClickable(false);
+            br_btn.setClickable(false);
             turn.setText("You lose");
             ng_btn.setEnabled(true);
         }
@@ -255,13 +259,21 @@ public class OriginalSimon extends Activity {
             bl_btn.setClickable(false);
             br_btn.setClickable(false);
             AI_Turn = true;
-            current_score.setText(Integer.toString(roundNumber));
+            current_score.setText(Integer.toString(score));
 
 
         }
 
         @Override
         protected Void doInBackground(Void... params) {
+           int delay=1500;
+           if(roundNumber<5){
+               delay=1500;
+           }else if(roundNumber>=5 && roundNumber<9){
+               delay=750;
+            }else if(roundNumber>=9){
+               delay=300;
+           }
             try {
                 AI_Turn = true;
                 int Max = 4;
@@ -270,7 +282,7 @@ public class OriginalSimon extends Activity {
                 AI_Choices.add(ai_choice);
                 Log.i("Button", " = " + ai_choice);
                 for (int i = 0; i < AI_Choices.size(); i++) {
-                    Thread.sleep(1500);
+                    Thread.sleep(delay);
                     publishProgress(AI_Choices.get(i));
                 }
             } catch (InterruptedException e) {
