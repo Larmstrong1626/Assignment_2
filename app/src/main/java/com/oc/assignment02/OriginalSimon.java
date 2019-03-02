@@ -193,37 +193,41 @@ public class OriginalSimon extends Activity {
 
     public void checkChoice() {
         // moves++;
+        
         Log.i("-------", "----- Moves -----" + moves + "");
         Log.i("-------", "----- Round -----" + roundNumber + "");
         Log.i("-------", "----- AI_choice -----" + AI_Choices.get(moves - 1) + "");
         Log.i("-------", "----- Human_choice -----" + human_move + "");
         Log.i("-------", "----- #of choices -----" + AI_Choices.size() + "");
+        final Runnable r = new Runnable() {
+            public void run() {
+                if (human_move == AI_Choices.get(moves - 1)) {
+                    // moves++;
+                    //pc.execute();
 
-        if (human_move == AI_Choices.get(moves - 1)) {
-           // moves++;
-            //pc.execute();
-            if (moves == AI_Choices.size()) {
-                //AI_Turn=true;
-                //moves++;
-                roundNumber++;
-                score++;
-                pc = new Computer_player();
-                pc.execute();
+                    if (moves == AI_Choices.size()) {
+                        //AI_Turn=true;
+                        //moves++;
+                        roundNumber++;
+                        score++;
+                        pc = new Computer_player();
+                        pc.execute();
 
-            }
-        } else {
-            AI_Turn = false;
-            AI_Choices.clear();
-            Human_Choices.clear();
-            tl_btn.setClickable(false);
-            tr_btn.setClickable(false);
-            bl_btn.setClickable(false);
-            br_btn.setClickable(false);
-            turn.setText("You lose");
-            ng_btn.setEnabled(true);
-        }
+                    }
+                } else {
+                    AI_Turn = false;
+                    AI_Choices.clear();
+                    Human_Choices.clear();
+                    tl_btn.setClickable(false);
+                    tr_btn.setClickable(false);
+                    bl_btn.setClickable(false);
+                    br_btn.setClickable(false);
+                    turn.setText("You lose");
+                    ng_btn.setEnabled(true);
+                }
 
-
+            }};
+        handler.postDelayed(r, 100);
     }
 
 
