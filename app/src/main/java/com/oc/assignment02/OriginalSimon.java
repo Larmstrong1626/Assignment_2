@@ -49,9 +49,9 @@ public class OriginalSimon extends Activity {
     private Button br_btn;
     private Button ng_btn;
 
-private TextView turn;
-private TextView current_score;
-private TextView high_score;
+    private TextView turn;
+    private TextView current_score;
+    private TextView high_score;
 
     private final int TL_BUTTON = 0;
     private final int TR_BUTTON = 1;
@@ -67,14 +67,15 @@ private TextView high_score;
 
     int human_move;
     Random r = new Random();
-    int score=0;
-    int moves = 0;
+    int score = 0;
+    int moves = 1;
     int roundNumber = 1;
     public SoundPool sp = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
     public int tl_sound, tr_sound, bl_sound, br_sound;
     boolean AI_Turn = true;
 
     private List<Integer> AI_Choices;
+    private List<Integer> Human_Choices;
 
     private Computer_player pc;
 
@@ -85,9 +86,10 @@ private TextView high_score;
 
 
         AI_Choices = new ArrayList<Integer>();
-        turn= (TextView)  findViewById(R.id.turn);
-        current_score= (TextView)  findViewById(R.id.current_score);
-        high_score= (TextView)  findViewById(R.id.high_score);
+        Human_Choices = new ArrayList<Integer>();
+        turn = (TextView) findViewById(R.id.turn);
+        current_score = (TextView) findViewById(R.id.current_score);
+        high_score = (TextView) findViewById(R.id.high_score);
 
         tl_sound = sp.load(this, R.raw.one, 1);
         tr_sound = sp.load(this, R.raw.two, 1);
@@ -117,9 +119,11 @@ private TextView high_score;
                 sp.play(tl_sound, 1, 1, 1, 0, 1f);
                 ButtonOpacity newopacity = new ButtonOpacity(handler, v);
                 newopacity.makeOpaque(handler, v);
-                human_move=1;
-                pc = new Computer_player();
-                pc.execute();
+                human_move = 1;
+                moves++;
+                checkChoice();
+                //pc = new Computer_player();
+                //pc.execute();
             }
         });
 
@@ -129,9 +133,11 @@ private TextView high_score;
                 sp.play(tr_sound, 1, 1, 1, 0, 1f);
                 ButtonOpacity newopacity = new ButtonOpacity(handler, v);
                 newopacity.makeOpaque(handler, v);
-                human_move=2;
-                pc = new Computer_player();
-                pc.execute();
+                human_move = 2;
+                moves++;
+                checkChoice();
+                //pc = new Computer_player();
+                //pc.execute();
             }
         });
 
@@ -142,9 +148,12 @@ private TextView high_score;
                 sp.play(bl_sound, 1, 1, 1, 0, 1f);
                 ButtonOpacity newopacity = new ButtonOpacity(handler, v);
                 newopacity.makeOpaque(handler, v);
-                human_move=3;
-                pc = new Computer_player();
-                pc.execute();
+                human_move = 3;
+                moves++;
+                checkChoice();
+
+                //pc = new Computer_player();
+                //pc.execute();
             }
         });
 
@@ -155,9 +164,11 @@ private TextView high_score;
                 sp.play(br_sound, 1, 1, 1, 0, 1f);
                 ButtonOpacity newopacity = new ButtonOpacity(handler, v);
                 newopacity.makeOpaque(handler, v);
-                human_move=4;
-                pc = new Computer_player();
-                pc.execute();
+                human_move = 4;
+                moves++;
+                checkChoice();
+                // pc = new Computer_player();
+                //pc.execute();
             }
         });
 
@@ -172,6 +183,41 @@ private TextView high_score;
             pc.execute();
         }
         ng_btn.setEnabled(false);
+        roundNumber = 1;
+        current_score.setText(Integer.toString(score));
+        moves = 1;
+
+
+
+    }
+
+    public void checkChoice() {
+        // moves++;
+        Log.i("-------", "----- Moves -----" + moves + "");
+        Log.i("-------", "----- Round -----" + roundNumber + "");
+        Log.i("-------", "----- AI_choice -----" + AI_Choices.get(moves - 1) + "");
+        Log.i("-------", "----- Human_choice -----" + human_move + "");
+        Log.i("-------", "----- #of choices -----" + AI_Choices.size() + "");
+
+        if (human_move == AI_Choices.get(moves - 1)) {
+           // moves++;
+            //pc.execute();
+            if (moves == AI_Choices.size()) {
+                //AI_Turn=true;
+                //moves++;
+                roundNumber++;
+                score++;
+                pc = new Computer_player();
+                pc.execute();
+
+            }
+        } else {
+            AI_Turn = false;
+            AI_Choices.clear();
+            Human_Choices.clear();
+            turn.setText("You lose");
+            ng_btn.setEnabled(true);
+        }
 
 
     }
@@ -208,6 +254,8 @@ private TextView high_score;
             tr_btn.setClickable(false);
             bl_btn.setClickable(false);
             br_btn.setClickable(false);
+            AI_Turn = true;
+            current_score.setText(Integer.toString(roundNumber));
 
 
         }
@@ -221,7 +269,7 @@ private TextView high_score;
                 int ai_choice = r.nextInt(Max - Min + 1) + Min;
                 AI_Choices.add(ai_choice);
                 Log.i("Button", " = " + ai_choice);
-               for (int i = 0; i < AI_Choices.size(); i++) {
+                for (int i = 0; i < AI_Choices.size(); i++) {
                     Thread.sleep(1500);
                     publishProgress(AI_Choices.get(i));
                 }
@@ -249,6 +297,8 @@ private TextView high_score;
             tr_btn.setClickable(true);
             bl_btn.setClickable(true);
             br_btn.setClickable(true);
+            AI_Turn = false;
+            moves=0;
         }
 
 
