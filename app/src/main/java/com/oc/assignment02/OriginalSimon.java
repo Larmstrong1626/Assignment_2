@@ -184,6 +184,7 @@ public class OriginalSimon extends Activity {
         }
         ng_btn.setEnabled(false);
         roundNumber = 1;
+        score=0;
         current_score.setText(Integer.toString(score));
         moves = 1;
 
@@ -193,7 +194,7 @@ public class OriginalSimon extends Activity {
 
     public void checkChoice() {
         // moves++;
-        
+
         Log.i("-------", "----- Moves -----" + moves + "");
         Log.i("-------", "----- Round -----" + roundNumber + "");
         Log.i("-------", "----- AI_choice -----" + AI_Choices.get(moves - 1) + "");
@@ -259,7 +260,7 @@ public class OriginalSimon extends Activity {
         protected void onPreExecute() {
             turn.setText("Simon is up");
             try {
-                Thread.sleep(1000);
+                Thread.sleep(500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
