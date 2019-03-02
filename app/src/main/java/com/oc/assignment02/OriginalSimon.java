@@ -26,6 +26,7 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -48,6 +49,7 @@ public class OriginalSimon extends Activity {
     private Button br_btn;
     private Button ng_btn;
 
+private TextView turn;
 
     private final int TL_BUTTON = 0;
     private final int TR_BUTTON = 1;
@@ -79,6 +81,7 @@ public class OriginalSimon extends Activity {
 
 
         AI_Choices = new ArrayList<Integer>();
+        turn= (TextView)  findViewById(R.id.turn);
 
         tl_sound = sp.load(this, R.raw.one, 1);
         tr_sound = sp.load(this, R.raw.two, 1);
@@ -190,6 +193,12 @@ public class OriginalSimon extends Activity {
 
         @Override
         protected void onPreExecute() {
+            turn.setText("Simon is up");
+            tl_btn.setClickable(false);
+            tr_btn.setClickable(false);
+            bl_btn.setClickable(false);
+            br_btn.setClickable(false);
+
 
         }
 
@@ -225,7 +234,11 @@ public class OriginalSimon extends Activity {
 
         @Override
         protected void onPostExecute(Void result) {
-
+            turn.setText("Your turn");
+            tl_btn.setClickable(true);
+            tr_btn.setClickable(true);
+            bl_btn.setClickable(true);
+            br_btn.setClickable(true);
         }
 
 

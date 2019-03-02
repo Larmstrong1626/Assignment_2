@@ -112,12 +112,13 @@
     <TextView
         android:id="@+id/turn"
         android:layout_width="250dp"
+        android:textSize="32sp"
         android:layout_height="50dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/textView6" />
 
 </android.support.constraint.ConstraintLayout>
