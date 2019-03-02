@@ -50,18 +50,22 @@ public class OriginalSimon extends Activity {
     private Button ng_btn;
 
 private TextView turn;
+private TextView current_score;
+private TextView high_score;
 
     private final int TL_BUTTON = 0;
     private final int TR_BUTTON = 1;
     private final int BL_BUTTON = 2;
     private final int BR_BUTTON = 3;
 
+    //enum Player_Choice {TL,TR,BL,BR};
+
     final Handler handler = new Handler();
     private SoundPool soundPool;
     private Set<Integer> soundsLoaded;
     final int MAX_LENGTH = 1000;
-    int AI_moves[] = new int[MAX_LENGTH];
-    int human_moves[] = new int[MAX_LENGTH];
+
+    int human_move;
     Random r = new Random();
     int score=0;
     int moves = 0;
@@ -82,6 +86,8 @@ private TextView turn;
 
         AI_Choices = new ArrayList<Integer>();
         turn= (TextView)  findViewById(R.id.turn);
+        current_score= (TextView)  findViewById(R.id.current_score);
+        high_score= (TextView)  findViewById(R.id.high_score);
 
         tl_sound = sp.load(this, R.raw.one, 1);
         tr_sound = sp.load(this, R.raw.two, 1);
@@ -111,6 +117,7 @@ private TextView turn;
                 sp.play(tl_sound, 1, 1, 1, 0, 1f);
                 ButtonOpacity newopacity = new ButtonOpacity(handler, v);
                 newopacity.makeOpaque(handler, v);
+                human_move=1;
                 pc = new Computer_player();
                 pc.execute();
             }
@@ -122,6 +129,7 @@ private TextView turn;
                 sp.play(tr_sound, 1, 1, 1, 0, 1f);
                 ButtonOpacity newopacity = new ButtonOpacity(handler, v);
                 newopacity.makeOpaque(handler, v);
+                human_move=2;
                 pc = new Computer_player();
                 pc.execute();
             }
@@ -134,6 +142,7 @@ private TextView turn;
                 sp.play(bl_sound, 1, 1, 1, 0, 1f);
                 ButtonOpacity newopacity = new ButtonOpacity(handler, v);
                 newopacity.makeOpaque(handler, v);
+                human_move=3;
                 pc = new Computer_player();
                 pc.execute();
             }
@@ -146,6 +155,7 @@ private TextView turn;
                 sp.play(br_sound, 1, 1, 1, 0, 1f);
                 ButtonOpacity newopacity = new ButtonOpacity(handler, v);
                 newopacity.makeOpaque(handler, v);
+                human_move=4;
                 pc = new Computer_player();
                 pc.execute();
             }
