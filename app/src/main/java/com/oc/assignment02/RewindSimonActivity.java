@@ -12,12 +12,19 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 import java.util.Set;
 
 public class RewindSimonActivity extends Activity {
@@ -32,7 +39,7 @@ public class RewindSimonActivity extends Activity {
     private TextView rewind_current_score;
     private TextView rewind_highScore;
 
-
+    int RhighScore = 0;
     int rewind_humanMove;
     int rewind_moves = 1;
     int rewind_roundNumber = 1;
@@ -47,6 +54,9 @@ public class RewindSimonActivity extends Activity {
     private List<Integer> rewind_User_Choices;
     private List<Integer> revList;
 
+    String filename = "rewindHigh_score";
+
+
     final Handler handler = new Handler();
     private SoundPool rewindSoundPool;
     private Set<Integer> rewindSoundsLoaded;
@@ -58,12 +68,18 @@ public class RewindSimonActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rewind);
 
+        readRewindHighScore();
+
         rewind_AI_Choices = new ArrayList<Integer>();
         rewind_User_Choices = new ArrayList<Integer>();
         revList = new ArrayList<Integer>();
         rewind_turn = findViewById(R.id.rewindTurn_tv);
         rewind_current_score = (TextView) findViewById(R.id.currentScore_tv2);
         rewind_highScore = (TextView) findViewById(R.id.highScore_tv2);
+       rewind_highScore.setText(Integer.toString(RhighScore));
+
+
+
 
         rewindTL_Btn = findViewById(R.id.button_rewind_tl);
         rewindTR_Btn = findViewById(R.id.button_rewind_tr);
@@ -176,11 +192,17 @@ public class RewindSimonActivity extends Activity {
             if (rewind_moves == revList.size()) {
                 rewind_roundNumber++;
                 rewind_score++;
+                if(rewind_score>RhighScore){
+                    RhighScore=rewind_score;
+                    writeRewindHighScore();
+                    rewind_highScore.setText(Integer.toString(RhighScore));
+                }
                 Simon = new Rewind_Computer_player();
                 Simon.execute();
 
             }
         } else {
+            rewind_turn.setText("GAME OVER!");
             Rewind_AI_Turn = false;
             rewind_AI_Choices.clear();
             revList.clear();
@@ -191,6 +213,23 @@ public class RewindSimonActivity extends Activity {
             rewindBL_Btn.setClickable(false);
             rewindNG_Btn.setEnabled(true);
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (Simon != null) {
+            Simon.cancel(true);
+            Simon = null;
+        }
+        if (rewindSP != null) {
+            rewindSP.release();
+            rewindSP = null;
+
+            rewindSoundsLoaded.clear();
+        }
+
+
     }
 
     public class Rewind_Computer_player extends AsyncTask<Void, Integer, Void> {
@@ -325,5 +364,40 @@ public class RewindSimonActivity extends Activity {
 
 
         }
+    void readRewindHighScore() {
+        Scanner scanner;
+        try {
+            FileInputStream scoreFile = openFileInput(filename);
+            scanner = new Scanner(scoreFile);
+
+            while (scanner.hasNext()) {
+                RhighScore = scanner.nextInt();
+
+            }
+            scanner.close();
+        }
+        catch (FileNotFoundException e) {
+
+            RhighScore = 0;
+        }
     }
+
+    public void writeRewindHighScore() {
+        try {
+            FileOutputStream outputFile = openFileOutput(filename, MODE_PRIVATE);
+            OutputStreamWriter writer = new OutputStreamWriter(outputFile);
+            BufferedWriter buf = new BufferedWriter(writer);
+            PrintWriter printer = new PrintWriter(buf);
+
+            printer.println(RhighScore);
+
+            printer.close();
+
+
+        } catch (FileNotFoundException e) {
+
+        }
+    }
+
+}
 
