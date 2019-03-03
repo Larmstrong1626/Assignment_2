@@ -36,6 +36,14 @@ public class MainActivity extends Activity {
             }
         });
 
+        final Button play_rewind = findViewById(R.id.play_btn2);
+        play_rewind.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                playRewind();
+            }
+        });
+
         Button about = findViewById(R.id.about_btn);
         about.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
@@ -58,6 +66,11 @@ public class MainActivity extends Activity {
         startActivity(i);
     }
 
+    public void playRewind(){
+        Intent intent = new Intent(getApplicationContext(),
+                RewindSimonActivity.class);
+        startActivity(intent);
+    }
 
 
 

@@ -23,6 +23,9 @@
             android:name=".OriginalSimon"
             android:screenOrientation="portrait"
             android:label="@string/title_activity_original_simon"></activity>
+        <activity android:name=".RewindSimonActivity"
+            android:screenOrientation="portrait"
+            android:label="RewindSimon"></activity>
     </application>
 
 </manifest>
