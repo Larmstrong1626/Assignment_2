@@ -140,10 +140,11 @@ public class OriginalSimon extends Activity {
                 newopacity.makeOpaque(handler, v);
                 human_move = 1;
                 moves++;
+                handler.removeCallbacks(end_game);
                 checkChoice();
                 //pc = new Computer_player();
                 //pc.execute();
-                handler.removeCallbacks(end_game);
+                //handler.removeCallbacks(end_game);
             }
         });
 
@@ -155,10 +156,11 @@ public class OriginalSimon extends Activity {
                 newopacity.makeOpaque(handler, v);
                 human_move = 2;
                 moves++;
+                handler.removeCallbacks(end_game);
                 checkChoice();
                 //pc = new Computer_player();
                 //pc.execute();
-                handler.removeCallbacks(end_game);
+                //handler.removeCallbacks(end_game);
             }
         });
 
@@ -171,11 +173,12 @@ public class OriginalSimon extends Activity {
                 newopacity.makeOpaque(handler, v);
                 human_move = 3;
                 moves++;
+                handler.removeCallbacks(end_game);
                 checkChoice();
 
                 //pc = new Computer_player();
                 //pc.execute();
-                handler.removeCallbacks(end_game);
+                //handler.removeCallbacks(end_game);
             }
         });
 
@@ -205,7 +208,11 @@ public class OriginalSimon extends Activity {
             pc = new Computer_player();
             pc.execute();
         }
-        ng_btn.setEnabled(false);
+        tl_btn.setEnabled(true);
+        tr_btn.setEnabled(true);
+        bl_btn.setEnabled(true);
+        br_btn.setEnabled(true);
+        ng_btn.setEnabled(true);
         roundNumber = 1;
         score=0;
         current_score.setText(Integer.toString(score));
@@ -262,6 +269,7 @@ public class OriginalSimon extends Activity {
 
             }};
         handler.postDelayed(r, 300);
+        handler.postDelayed(end_game, 5000);
     }
 
 
@@ -296,6 +304,7 @@ public class OriginalSimon extends Activity {
         @Override
         protected void onPreExecute() {
             turn.setText("Simon is up");
+            handler.removeCallbacks(end_game);
             try {
                 Thread.sleep(300);
                 //turn.setText("Simon is up");
@@ -306,6 +315,10 @@ public class OriginalSimon extends Activity {
             tr_btn.setClickable(false);
             bl_btn.setClickable(false);
             br_btn.setClickable(false);
+           /* tl_btn.setEnabled(false);
+            tr_btn.setEnabled(false);
+            bl_btn.setEnabled(false);
+            br_btn.setEnabled(false);*/
             AI_Turn = true;
             current_score.setText(Integer.toString(score));
 
@@ -479,7 +492,7 @@ public class OriginalSimon extends Activity {
                 tr_btn.setClickable(false);
                 bl_btn.setClickable(false);
                 br_btn.setClickable(false);
-                turn.setText("You lose-Time Expired");
+                turn.setText("Time Expired");
                 ng_btn.setEnabled(true);
 
 
