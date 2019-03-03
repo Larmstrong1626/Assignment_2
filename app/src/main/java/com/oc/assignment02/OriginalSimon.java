@@ -28,10 +28,17 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 import java.util.Set;
 
 public class OriginalSimon extends Activity {
@@ -52,6 +59,8 @@ public class OriginalSimon extends Activity {
     private TextView current_score;
     private TextView high_score;
 
+    int highscore=0;
+
     private final int TL_BUTTON = 0;
     private final int TR_BUTTON = 1;
     private final int BL_BUTTON = 2;
@@ -64,6 +73,7 @@ public class OriginalSimon extends Activity {
     private Set<Integer> soundsLoaded;
     final int MAX_LENGTH = 31;
 
+    String filename = "high_score";
     int human_move;
     Random r = new Random();
     int score = 0;
@@ -83,12 +93,14 @@ public class OriginalSimon extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_original_simon);
 
+        readHighScore();
 
         AI_Choices = new ArrayList<Integer>();
         Human_Choices = new ArrayList<Integer>();
         turn = (TextView) findViewById(R.id.turn);
         current_score = (TextView) findViewById(R.id.current_score);
         high_score = (TextView) findViewById(R.id.high_score);
+        high_score.setText(Integer.toString(highscore));
 
         tl_sound = sp.load(this, R.raw.one, 1);
         tr_sound = sp.load(this, R.raw.two, 1);
@@ -103,6 +115,10 @@ public class OriginalSimon extends Activity {
         tr_btn.setClickable(false);
         bl_btn.setClickable(false);
         br_btn.setClickable(false);
+        tl_btn.setEnabled(false);
+        tr_btn.setEnabled(false);
+        bl_btn.setEnabled(false);
+        br_btn.setEnabled(false);
         ng_btn = (Button) findViewById(R.id.new_game);
 
 
@@ -212,8 +228,14 @@ public class OriginalSimon extends Activity {
                     if (moves == AI_Choices.size()) {
                         //AI_Turn=true;
                         //moves++;
+
                         roundNumber++;
                         score++;
+                        if(score>highscore){
+                            highscore=score;
+                            writeHighScore();
+                            high_score.setText(Integer.toString(highscore));
+                        }
                         pc = new Computer_player();
                         pc.execute();
 
@@ -222,16 +244,16 @@ public class OriginalSimon extends Activity {
                     AI_Turn = false;
                     AI_Choices.clear();
                     Human_Choices.clear();
-                    tl_btn.setClickable(false);
-                    tr_btn.setClickable(false);
-                    bl_btn.setClickable(false);
-                    br_btn.setClickable(false);
+                    tl_btn.setEnabled(false);
+                    tr_btn.setEnabled(false);
+                    bl_btn.setEnabled(false);
+                    br_btn.setEnabled(false);
                     turn.setText("You lose");
                     ng_btn.setEnabled(true);
                 }
 
             }};
-        handler.postDelayed(r, 100);
+        handler.postDelayed(r, 300);
     }
 
 
@@ -245,6 +267,10 @@ public class OriginalSimon extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
+        if (pc != null) {
+            pc.cancel(true);
+            pc = null;
+        }
         if (soundPool != null) {
             soundPool.release();
             soundPool = null;
@@ -257,13 +283,14 @@ public class OriginalSimon extends Activity {
 
     public class Computer_player extends AsyncTask<Void, Integer, Void> {
 
-        Random randomButtonGenerator = new Random();
+
 
         @Override
         protected void onPreExecute() {
             turn.setText("Simon is up");
             try {
-                Thread.sleep(500);
+                Thread.sleep(300);
+                //turn.setText("Simon is up");
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -322,8 +349,13 @@ public class OriginalSimon extends Activity {
             tr_btn.setClickable(true);
             bl_btn.setClickable(true);
             br_btn.setClickable(true);
+            tl_btn.setEnabled(true);
+            tr_btn.setEnabled(true);
+            bl_btn.setEnabled(true);
+            br_btn.setEnabled(true);
             AI_Turn = false;
             moves=0;
+
         }
 
 
@@ -388,5 +420,40 @@ public class OriginalSimon extends Activity {
         }
 
 
+    }
+
+    void readHighScore() {
+        Scanner scanner;
+        try {
+            FileInputStream scoreFile = openFileInput(filename);
+            scanner = new Scanner(scoreFile);
+
+            while (scanner.hasNext()) {
+                highscore = scanner.nextInt();
+
+            }
+            scanner.close();
+        }
+        catch (FileNotFoundException e) {
+
+            highscore = 0;
+        }
+    }
+
+    public void writeHighScore() {
+        try {
+            FileOutputStream outputFile = openFileOutput(filename, MODE_PRIVATE);
+            OutputStreamWriter writer = new OutputStreamWriter(outputFile);
+            BufferedWriter buf = new BufferedWriter(writer);
+            PrintWriter printer = new PrintWriter(buf);
+
+            printer.println(highscore);
+
+            printer.close();
+
+
+        } catch (FileNotFoundException e) {
+
+        }
     }
 }
