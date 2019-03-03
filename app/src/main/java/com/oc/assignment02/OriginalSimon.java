@@ -143,6 +143,7 @@ public class OriginalSimon extends Activity {
                 checkChoice();
                 //pc = new Computer_player();
                 //pc.execute();
+                handler.removeCallbacks(end_game);
             }
         });
 
@@ -157,6 +158,7 @@ public class OriginalSimon extends Activity {
                 checkChoice();
                 //pc = new Computer_player();
                 //pc.execute();
+                handler.removeCallbacks(end_game);
             }
         });
 
@@ -173,6 +175,7 @@ public class OriginalSimon extends Activity {
 
                 //pc = new Computer_player();
                 //pc.execute();
+                handler.removeCallbacks(end_game);
             }
         });
 
@@ -188,6 +191,7 @@ public class OriginalSimon extends Activity {
                 checkChoice();
                 // pc = new Computer_player();
                 //pc.execute();
+                handler.removeCallbacks(end_game);
             }
         });
 
@@ -359,6 +363,7 @@ public class OriginalSimon extends Activity {
             br_btn.setEnabled(true);
             AI_Turn = false;
             moves=0;
+            handler.postDelayed(end_game, 5000);
 
         }
 
@@ -460,4 +465,25 @@ public class OriginalSimon extends Activity {
 
         }
     }
+
+
+        final Runnable end_game = new Runnable() {
+            public void run() {AI_Turn = false;
+                AI_Choices.clear();
+                Human_Choices.clear();
+                tl_btn.setEnabled(false);
+                tr_btn.setEnabled(false);
+                bl_btn.setEnabled(false);
+                br_btn.setEnabled(false);
+                tl_btn.setClickable(false);
+                tr_btn.setClickable(false);
+                bl_btn.setClickable(false);
+                br_btn.setClickable(false);
+                turn.setText("You lose-Time Expired");
+                ng_btn.setEnabled(true);
+
+
+            }
+        };
+
 }
