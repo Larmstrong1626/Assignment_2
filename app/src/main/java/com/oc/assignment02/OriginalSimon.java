@@ -248,6 +248,10 @@ public class OriginalSimon extends Activity {
                     tr_btn.setEnabled(false);
                     bl_btn.setEnabled(false);
                     br_btn.setEnabled(false);
+                    tl_btn.setClickable(false);
+                    tr_btn.setClickable(false);
+                    bl_btn.setClickable(false);
+                    br_btn.setClickable(false);
                     turn.setText("You lose");
                     ng_btn.setEnabled(true);
                 }
