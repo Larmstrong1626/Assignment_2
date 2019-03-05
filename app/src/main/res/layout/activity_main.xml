@@ -83,7 +83,7 @@
                 android:layout_marginTop="32dp"
                 android:background="@drawable/buttons"
 
-
+                android:text="Play Simon Warp"
                 android:textColor="@android:color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

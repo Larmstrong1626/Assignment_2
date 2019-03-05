@@ -37,6 +37,8 @@ public class WarpSpeed extends Activity {
     public static final int S4 = R.raw.four;
 
 
+
+
     private Button tl_btn;
     private Button tr_btn;
     private Button bl_btn;
@@ -62,6 +64,10 @@ public class WarpSpeed extends Activity {
     final int MAX_LENGTH = 31;
 
     String filename = "high_score_warp";
+
+
+
+
     int human_move;
     Random r = new Random();
     int score = 0;
@@ -75,13 +81,18 @@ public class WarpSpeed extends Activity {
     private List<Integer> Human_Choices;
 
     private Computer_player pc;
+    FileOperations my_file;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_warp_speed);
-
-        readHighScore();
+        my_file=new FileOperations(this,filename);
+        my_file.setFilename(filename);
+        highscore=my_file.getHighscore();
+        //my_file.getFilename();
+        //my_file.readHighScore(this);
+        //readHighScore();
 
         AI_Choices = new ArrayList<Integer>();
         Human_Choices = new ArrayList<Integer>();
@@ -232,7 +243,9 @@ public class WarpSpeed extends Activity {
                         score++;
                         if(score>highscore){
                             highscore=score;
-                            writeHighScore();
+                            //writeHighScore();
+                            my_file.setHighscore(score);
+                            my_file.writeHighScore(score,this);
                             high_score.setText(Integer.toString(highscore));
                         }
                         pc = new Computer_player();
