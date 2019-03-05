@@ -61,7 +61,7 @@ public class WarpSpeed extends Activity {
     private Set<Integer> soundsLoaded;
     final int MAX_LENGTH = 31;
 
-    String filename = "high_score";
+    String filename = "high_score_warp";
     int human_move;
     Random r = new Random();
     int score = 0;
@@ -79,7 +79,7 @@ public class WarpSpeed extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_original_simon);
+        setContentView(R.layout.activity_warp_speed);
 
         readHighScore();
 
@@ -315,13 +315,13 @@ public class WarpSpeed extends Activity {
 
         @Override
         protected Void doInBackground(Void... params) {
-            int delay=1500;
+            int delay=300;
             if(roundNumber<5){
-                delay=1500;
-            }else if(roundNumber>=5 && roundNumber<9){
-                delay=750;
-            }else if(roundNumber>=9){
                 delay=300;
+            }else if(roundNumber>=5 && roundNumber<9){
+                delay=200;
+            }else if(roundNumber>=9){
+                delay=100;
             }
             try {
                 AI_Turn = true;
