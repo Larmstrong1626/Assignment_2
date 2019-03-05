@@ -245,7 +245,7 @@ public class WarpSpeed extends Activity {
                             highscore=score;
                             //writeHighScore();
                             my_file.setHighscore(score);
-                            my_file.writeHighScore(score,this);
+                            my_file.writeHighScore(score,WarpSpeed.this);
                             high_score.setText(Integer.toString(highscore));
                         }
                         pc = new Computer_player();
@@ -445,40 +445,7 @@ public class WarpSpeed extends Activity {
 
     }
 
-    void readHighScore() {
-        Scanner scanner;
-        try {
-            FileInputStream scoreFile = openFileInput(filename);
-            scanner = new Scanner(scoreFile);
-
-            while (scanner.hasNext()) {
-                highscore = scanner.nextInt();
-
-            }
-            scanner.close();
-        }
-        catch (FileNotFoundException e) {
-
-            highscore = 0;
-        }
-    }
-
-    public void writeHighScore() {
-        try {
-            FileOutputStream outputFile = openFileOutput(filename, MODE_PRIVATE);
-            OutputStreamWriter writer = new OutputStreamWriter(outputFile);
-            BufferedWriter buf = new BufferedWriter(writer);
-            PrintWriter printer = new PrintWriter(buf);
-
-            printer.println(highscore);
-
-            printer.close();
-
-
-        } catch (FileNotFoundException e) {
-
-        }
-    }
+  
 
 
     final Runnable end_game = new Runnable() {

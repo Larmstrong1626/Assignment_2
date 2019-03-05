@@ -31,6 +31,7 @@ public class FileOperations {
 
 
         highscore=this.readHighScore(context,filename);
+        //this.writeHighScore(highscore,context);
 
     }
 
@@ -56,13 +57,17 @@ public class FileOperations {
         return highscore;
     }
 
-    public void writeHighScore(int highscore, Runnable context) {
+    public void writeHighScore(int highscore, Context context) {
 
         try {
-            FileOutputStream outputFile = context.openFileOutput(filename, MODE_PRIVATE);
-            OutputStreamWriter writer = new OutputStreamWriter(outputFile);
-            BufferedWriter buf = new BufferedWriter(writer);
-            PrintWriter printer = new PrintWriter(buf);
+            OutputStreamWriter writer;
+            BufferedWriter buf;
+            PrintWriter printer;
+           FileOutputStream outputFile = context.openFileOutput(filename, MODE_PRIVATE);
+                writer = new OutputStreamWriter(outputFile);
+
+            buf = new BufferedWriter(writer);
+            printer = new PrintWriter(buf);
 
             printer.println(highscore);
 
