@@ -316,10 +316,6 @@ public class WarpSpeed extends Activity {
             tr_btn.setClickable(false);
             bl_btn.setClickable(false);
             br_btn.setClickable(false);
-           /* tl_btn.setEnabled(false);
-            tr_btn.setEnabled(false);
-            bl_btn.setEnabled(false);
-            br_btn.setEnabled(false);*/
             AI_Turn = true;
             current_score.setText(Integer.toString(score));
 
@@ -445,7 +441,7 @@ public class WarpSpeed extends Activity {
 
     }
 
-  
+
 
 
     final Runnable end_game = new Runnable() {

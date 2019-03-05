@@ -87,13 +87,16 @@ public class OriginalSimon extends Activity {
     private List<Integer> Human_Choices;
 
     private Computer_player pc;
+    FileOperations my_file;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_original_simon);
-
-        readHighScore();
+        my_file=new FileOperations(this,filename);
+        my_file.setFilename(filename);
+        highscore=my_file.getHighscore();
+        //readHighScore();
 
         AI_Choices = new ArrayList<Integer>();
         Human_Choices = new ArrayList<Integer>();
@@ -244,7 +247,9 @@ public class OriginalSimon extends Activity {
                         score++;
                         if(score>highscore){
                             highscore=score;
-                            writeHighScore();
+                            //writeHighScore();
+                            my_file.setHighscore(score);
+                            my_file.writeHighScore(score,OriginalSimon.this);
                             high_score.setText(Integer.toString(highscore));
                         }
                         pc = new Computer_player();
@@ -438,49 +443,11 @@ public class OriginalSimon extends Activity {
             };
             handler.postDelayed(r, 100);
 
-
         }
-
 
     }
 
-    void readHighScore() {
-        Scanner scanner;
-        try {
-            FileInputStream scoreFile = openFileInput(filename);
-            scanner = new Scanner(scoreFile);
-
-            while (scanner.hasNext()) {
-                highscore = scanner.nextInt();
-
-            }
-            scanner.close();
-        }
-        catch (FileNotFoundException e) {
-
-            highscore = 0;
-        }
-    }
-
-    public void writeHighScore() {
-        try {
-            FileOutputStream outputFile = openFileOutput(filename, MODE_PRIVATE);
-            OutputStreamWriter writer = new OutputStreamWriter(outputFile);
-            BufferedWriter buf = new BufferedWriter(writer);
-            PrintWriter printer = new PrintWriter(buf);
-
-            printer.println(highscore);
-
-            printer.close();
-
-
-        } catch (FileNotFoundException e) {
-
-        }
-    }
-
-
-        final Runnable end_game = new Runnable() {
+            final Runnable end_game = new Runnable() {
             public void run() {AI_Turn = false;
                 AI_Choices.clear();
                 Human_Choices.clear();
