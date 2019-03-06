@@ -2,4 +2,5 @@
     <string name="app_name">Assignment02</string>
     <string name="title_activity_about">AboutActivity</string>
     <string name="title_activity_original_simon">OriginalSimon</string>
+    <string name="new_game_attribute">"Race Car" by "JustInvoke" is licensed under CC BY and can be found at https://freesound.org/people/JustInvoke/sounds/446142/</string>
 </resources>

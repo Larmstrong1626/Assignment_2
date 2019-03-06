@@ -1,0 +1,7 @@
+game_over.wav https://freesound.org/people/TaranP/sounds/362205/
+high_score1.wav https://freesound.org/people/LittleRobotSoundFactory/sounds/270402/
+new_game.wav https://freesound.org/people/JustInvoke/sounds/446142/
+blue https://freesound.org/people/pinkyfinger/sounds/68447/
+yellow https://freesound.org/people/pinkyfinger/sounds/68440/
+red https://freesound.org/people/pinkyfinger/sounds/68443/
+green https://freesound.org/people/pinkyfinger/sounds/68447/
