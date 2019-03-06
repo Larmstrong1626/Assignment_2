@@ -74,7 +74,7 @@ public class WarpSpeed extends Activity {
     int moves = 1;
     int roundNumber = 1;
     public SoundPool sp = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
-    public int tl_sound, tr_sound, bl_sound, br_sound;
+    public int tl_sound, tr_sound, bl_sound, br_sound,game_over;
     boolean AI_Turn = true;
 
     private List<Integer> AI_Choices;
@@ -105,6 +105,7 @@ public class WarpSpeed extends Activity {
         tr_sound = sp.load(this, R.raw.two, 1);
         bl_sound = sp.load(this, R.raw.three, 1);
         br_sound = sp.load(this, R.raw.four, 1);
+        game_over = sp.load(this, R.raw.game_over, 1);
 
         tl_btn = (Button) findViewById(R.id.button_tl);
         tr_btn = (Button) findViewById(R.id.button_tr);
@@ -266,6 +267,7 @@ public class WarpSpeed extends Activity {
                     br_btn.setClickable(false);
                     turn.setText("You lose");
                     ng_btn.setEnabled(true);
+                    sp.play(game_over, 1, 1, 1, 0, 1f);
                 }
 
             }};

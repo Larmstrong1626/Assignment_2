@@ -146,7 +146,7 @@ public class OriginalSimon extends Activity {
                 moves++;
                 handler.removeCallbacks(end_game);
                 checkChoice();
-                
+
             }
         });
 
