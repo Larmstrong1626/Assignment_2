@@ -74,7 +74,7 @@ public class WarpSpeed extends Activity {
     int moves = 1;
     int roundNumber = 1;
     public SoundPool sp = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
-    public int tl_sound, tr_sound, bl_sound, br_sound,game_over;
+    public int tl_sound, tr_sound, bl_sound, br_sound,game_over,high_sound;
     boolean AI_Turn = true;
 
     private List<Integer> AI_Choices;
@@ -90,9 +90,7 @@ public class WarpSpeed extends Activity {
         my_file=new FileOperations(this,filename);
         my_file.setFilename(filename);
         highscore=my_file.getHighscore();
-        //my_file.getFilename();
-        //my_file.readHighScore(this);
-        //readHighScore();
+
 
         AI_Choices = new ArrayList<Integer>();
         Human_Choices = new ArrayList<Integer>();
@@ -106,6 +104,7 @@ public class WarpSpeed extends Activity {
         bl_sound = sp.load(this, R.raw.red, 1);
         br_sound = sp.load(this, R.raw.yellow, 1);
         game_over = sp.load(this, R.raw.game_over, 1);
+        high_sound=sp.load(this,R.raw.high_score1,1);
 
         tl_btn = (Button) findViewById(R.id.button_tl);
         tr_btn = (Button) findViewById(R.id.button_tr);
@@ -141,10 +140,7 @@ public class WarpSpeed extends Activity {
                 human_move = 1;
                 moves++;
                 handler.removeCallbacks(end_game);
-                checkChoice();
-                //pc = new Computer_player();
-                //pc.execute();
-                //handler.removeCallbacks(end_game);
+
             }
         });
 
@@ -158,16 +154,14 @@ public class WarpSpeed extends Activity {
                 moves++;
                 handler.removeCallbacks(end_game);
                 checkChoice();
-                //pc = new Computer_player();
-                //pc.execute();
-                //handler.removeCallbacks(end_game);
+
             }
         });
 
         bl_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //playSound(threeId);
+
                 sp.play(bl_sound, 1, 1, 1, 0, 1f);
                 ButtonOpacity newopacity = new ButtonOpacity(handler, v);
                 newopacity.makeOpaque(handler, v);
@@ -176,9 +170,6 @@ public class WarpSpeed extends Activity {
                 handler.removeCallbacks(end_game);
                 checkChoice();
 
-                //pc = new Computer_player();
-                //pc.execute();
-                //handler.removeCallbacks(end_game);
             }
         });
 
@@ -192,8 +183,7 @@ public class WarpSpeed extends Activity {
                 human_move = 4;
                 moves++;
                 checkChoice();
-                // pc = new Computer_player();
-                //pc.execute();
+
                 handler.removeCallbacks(end_game);
             }
         });
@@ -245,6 +235,13 @@ public class WarpSpeed extends Activity {
                         if(score>highscore){
                             highscore=score;
                             //writeHighScore();
+                            final Runnable h = new Runnable() {
+                                public void run() {
+                                    sp.play(high_sound, 1, 1, 1, 0, 1f);
+
+                                }
+                            };
+                            handler.postDelayed(h, 100);
                             my_file.setHighscore(score);
                             my_file.writeHighScore(score,WarpSpeed.this);
                             high_score.setText(Integer.toString(highscore));
