@@ -255,6 +255,7 @@ public class WarpSpeed extends Activity {
                     AI_Turn = false;
                     AI_Choices.clear();
                     Human_Choices.clear();
+                    handler.removeCallbacks(end_game);
                     tl_btn.setEnabled(false);
                     tr_btn.setEnabled(false);
                     bl_btn.setEnabled(false);
@@ -265,11 +266,12 @@ public class WarpSpeed extends Activity {
                     br_btn.setClickable(false);
                     turn.setText("You lose");
                     ng_btn.setEnabled(true);
+                    ng_btn.setClickable(true);
                     sp.play(game_over, 1, 1, 1, 0, 1f);
                 }
 
             }};
-        handler.postDelayed(r, 300);
+        handler.postDelayed(r, 10);
         handler.postDelayed(end_game, 5000);
     }
 
@@ -307,7 +309,7 @@ public class WarpSpeed extends Activity {
             turn.setText("Simon is up");
             handler.removeCallbacks(end_game);
             try {
-                Thread.sleep(2000);
+                Thread.sleep(1000);
                 //turn.setText("Simon is up");
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -316,6 +318,7 @@ public class WarpSpeed extends Activity {
             tr_btn.setClickable(false);
             bl_btn.setClickable(false);
             br_btn.setClickable(false);
+
             AI_Turn = true;
             current_score.setText(Integer.toString(score));
 
@@ -457,6 +460,8 @@ public class WarpSpeed extends Activity {
             bl_btn.setClickable(false);
             br_btn.setClickable(false);
             turn.setText("Time Expired");
+            sp.play(game_over, 1, 1, 1, 0, 1f);
+
             ng_btn.setEnabled(true);
 
 
