@@ -3,4 +3,7 @@
     <string name="title_activity_about">AboutActivity</string>
     <string name="title_activity_original_simon">OriginalSimon</string>
     <string name="new_game_attribute">"Race Car" by "JustInvoke" is licensed under CC BY and can be found at https://freesound.org/people/JustInvoke/sounds/446142/</string>
+    <string name="game_over_attribute">"horn_fail_wahwah_2" by "TaranP" is licensed under CC BY and can be found at https://freesound.org/people/TaranP/sounds/362205/</string>
+    <string name="high_score_attribute">"Jingle_Win_00" by "LittleRobotSoundFactory" is licensed under CC BY and can be found at https://freesound.org/people/LittleRobotSoundFactory/sounds/270402/</string>
+    <string name="piano_attributes">"Piano Notes" by "pinkyfinger" is licensed under CC BY and can be found at https://freesound.org/people/pinkyfinger/packs/4409/</string>
 </resources>

@@ -73,8 +73,6 @@ public class OriginalSimon extends Activity {
     private Set<Integer> soundsLoaded;
     final int MAX_LENGTH = 31;
 
-    boolean newhighscore=false;
-
     String filename = "high_score";
     int human_move;
     Random r = new Random();
@@ -82,7 +80,7 @@ public class OriginalSimon extends Activity {
     int moves = 1;
     int roundNumber = 1;
     public SoundPool sp = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
-    public int tl_sound, tr_sound, bl_sound, br_sound,game_over,high_sound,new_sound;
+    public int tl_sound, tr_sound, bl_sound, br_sound, new_sound, game_over,high_sound;
     boolean AI_Turn = true;
 
     private List<Integer> AI_Choices;
@@ -97,7 +95,7 @@ public class OriginalSimon extends Activity {
         setContentView(R.layout.activity_original_simon);
         my_file=new FileOperations(this,filename);
         my_file.setFilename(filename);
-       highscore=my_file.getHighscore();
+        highscore=my_file.getHighscore();
        // highscore=0;
 
         AI_Choices = new ArrayList<Integer>();
@@ -111,9 +109,9 @@ public class OriginalSimon extends Activity {
         tr_sound = sp.load(this, R.raw.green, 1);
         bl_sound = sp.load(this, R.raw.red, 1);
         br_sound = sp.load(this, R.raw.yellow, 1);
+        new_sound = sp.load(this, R.raw.new_game2, 1);
         high_sound=sp.load(this, R.raw.high_score1, 1);
         game_over = sp.load(this, R.raw.game_over, 1);
-        new_sound = sp.load(this, R.raw.new_game2, 1);
 
         tl_btn = (Button) findViewById(R.id.button_tl);
         tr_btn = (Button) findViewById(R.id.button_tr);
@@ -255,7 +253,7 @@ public class OriginalSimon extends Activity {
                         if(score>highscore){
                             highscore=score;
                             //writeHighScore();
-                            newhighscore=true;
+                           // newhighscore=true;
 
                                     sp.play(high_sound, 1, 1, 1, 0, 3.0f);
 
