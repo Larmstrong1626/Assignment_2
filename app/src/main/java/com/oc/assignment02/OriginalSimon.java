@@ -73,6 +73,8 @@ public class OriginalSimon extends Activity {
     private Set<Integer> soundsLoaded;
     final int MAX_LENGTH = 31;
 
+    boolean newhighscore=false;
+
     String filename = "high_score";
     int human_move;
     Random r = new Random();
@@ -95,8 +97,8 @@ public class OriginalSimon extends Activity {
         setContentView(R.layout.activity_original_simon);
         my_file=new FileOperations(this,filename);
         my_file.setFilename(filename);
-        highscore=my_file.getHighscore();
-       // highscore=0;
+       // highscore=my_file.getHighscore();
+        highscore=0;
 
         AI_Choices = new ArrayList<Integer>();
         Human_Choices = new ArrayList<Integer>();
@@ -144,7 +146,7 @@ public class OriginalSimon extends Activity {
         tl_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sp.play(tl_sound, 1, 1, 1, 0, 1f);
+                sp.play(tl_sound, 1, 1, 1, 0, 2f);
                 ButtonOpacity newopacity = new ButtonOpacity(handler, v);
                 newopacity.makeOpaque(handler, v);
                 human_move = 1;
@@ -158,7 +160,7 @@ public class OriginalSimon extends Activity {
         tr_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sp.play(tr_sound, 1, 1, 1, 0, 1f);
+                sp.play(tr_sound, 1, 1, 1, 0, 2f);
                 ButtonOpacity newopacity = new ButtonOpacity(handler, v);
                 newopacity.makeOpaque(handler, v);
                 human_move = 2;
@@ -175,7 +177,7 @@ public class OriginalSimon extends Activity {
             @Override
             public void onClick(View v) {
                 //playSound(threeId);
-                sp.play(bl_sound, 1, 1, 1, 0, 1f);
+                sp.play(bl_sound, 1, 1, 1, 0, 2f);
                 ButtonOpacity newopacity = new ButtonOpacity(handler, v);
                 newopacity.makeOpaque(handler, v);
                 human_move = 3;
@@ -193,7 +195,7 @@ public class OriginalSimon extends Activity {
             @Override
             public void onClick(View v) {
                 //playSound(fourId);
-                sp.play(br_sound, 1, 1, 1, 0, 1f);
+                sp.play(br_sound, 1, 1, 1, 0, 2f);
                 ButtonOpacity newopacity = new ButtonOpacity(handler, v);
                 newopacity.makeOpaque(handler, v);
                 human_move = 4;
@@ -252,8 +254,9 @@ public class OriginalSimon extends Activity {
                         if(score>highscore){
                             highscore=score;
                             //writeHighScore();
+                            newhighscore=true;
 
-                                    //sp.play(high_sound, 1, 1, 1, 0, 1f);
+                                    sp.play(high_sound, 1, 1, 1, 0, 3.0f);
 
 
                             my_file.setHighscore(score);
@@ -317,10 +320,11 @@ public class OriginalSimon extends Activity {
 
         @Override
         protected void onPreExecute() {
+           
             turn.setText("Simon is up");
             handler.removeCallbacks(end_game);
             try {
-                Thread.sleep(300);
+                Thread.sleep(2000);
                 //turn.setText("Simon is up");
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -329,10 +333,7 @@ public class OriginalSimon extends Activity {
             tr_btn.setClickable(false);
             bl_btn.setClickable(false);
             br_btn.setClickable(false);
-           /* tl_btn.setEnabled(false);
-            tr_btn.setEnabled(false);
-            bl_btn.setEnabled(false);
-            br_btn.setEnabled(false);*/
+
             AI_Turn = true;
             current_score.setText(Integer.toString(score));
 
@@ -379,7 +380,9 @@ public class OriginalSimon extends Activity {
 
         @Override
         protected void onPostExecute(Void result) {
-            turn.setText("Your turn");
+
+             turn.setText("Your turn");
+
             tl_btn.setClickable(true);
             tr_btn.setClickable(true);
             bl_btn.setClickable(true);
@@ -400,7 +403,7 @@ public class OriginalSimon extends Activity {
     public void play_sound(int soundId) {
         if (soundId == 1) {
             soundId = tl_sound;
-            sp.play(soundId, 1, 1, 1, 0, 1f);
+            sp.play(soundId, 1, 1, 1, 0, 2f);
             tl_btn.getBackground().setAlpha(51);
             final Runnable r = new Runnable() {
                 public void run() {
@@ -414,7 +417,7 @@ public class OriginalSimon extends Activity {
         }
         if (soundId == 2) {
             soundId = tr_sound;
-            sp.play(soundId, 1, 1, 1, 0, 1f);
+            sp.play(soundId, 1, 1, 1, 0, 2f);
             tr_btn.getBackground().setAlpha(51);
             final Runnable r = new Runnable() {
                 public void run() {
@@ -428,7 +431,7 @@ public class OriginalSimon extends Activity {
         }
         if (soundId == 3) {
             soundId = bl_sound;
-            sp.play(soundId, 1, 1, 1, 0, 1f);
+            sp.play(soundId, 1, 1, 1, 0, 2f);
             bl_btn.getBackground().setAlpha(51);
             final Runnable r = new Runnable() {
                 public void run() {
@@ -441,7 +444,7 @@ public class OriginalSimon extends Activity {
         }
         if (soundId == 4) {
             soundId = br_sound;
-            sp.play(soundId, 1, 1, 1, 0, 1f);
+            sp.play(soundId, 1, 1, 1, 0, 2f);
 
             br_btn.getBackground().setAlpha(51);
             final Runnable r = new Runnable() {
