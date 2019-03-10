@@ -99,10 +99,10 @@ public class WarpSpeed extends Activity {
         high_score = (TextView) findViewById(R.id.high_score);
         high_score.setText(Integer.toString(highscore));
 
-        tl_sound = sp.load(this, R.raw.one, 1);
-        tr_sound = sp.load(this, R.raw.two, 1);
-        bl_sound = sp.load(this, R.raw.three, 1);
-        br_sound = sp.load(this, R.raw.four, 1);
+        tl_sound = sp.load(this, R.raw.blue, 1);
+        tr_sound = sp.load(this, R.raw.green, 1);
+        bl_sound = sp.load(this, R.raw.red, 1);
+        br_sound = sp.load(this, R.raw.yellow, 1);
         game_over = sp.load(this, R.raw.game_over, 1);
         high_sound=sp.load(this,R.raw.high_score1,1);
 
@@ -140,6 +140,7 @@ public class WarpSpeed extends Activity {
                 human_move = 1;
                 moves++;
                 handler.removeCallbacks(end_game);
+                checkChoice();
 
             }
         });
@@ -235,13 +236,10 @@ public class WarpSpeed extends Activity {
                         if(score>highscore){
                             highscore=score;
                             //writeHighScore();
-                            final Runnable h = new Runnable() {
-                                public void run() {
-                                    sp.play(high_sound, 1, 1, 1, 0, 1f);
 
-                                }
-                            };
-                            handler.postDelayed(h, 100);
+                                    //sp.play(high_sound, 1, 1, 1, 0, 1f);
+
+
                             my_file.setHighscore(score);
                             my_file.writeHighScore(score,WarpSpeed.this);
                             high_score.setText(Integer.toString(highscore));
