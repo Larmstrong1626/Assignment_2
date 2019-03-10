@@ -97,8 +97,8 @@ public class OriginalSimon extends Activity {
         setContentView(R.layout.activity_original_simon);
         my_file=new FileOperations(this,filename);
         my_file.setFilename(filename);
-       // highscore=my_file.getHighscore();
-        highscore=0;
+       highscore=my_file.getHighscore();
+       // highscore=0;
 
         AI_Choices = new ArrayList<Integer>();
         Human_Choices = new ArrayList<Integer>();
@@ -320,7 +320,7 @@ public class OriginalSimon extends Activity {
 
         @Override
         protected void onPreExecute() {
-           
+
             turn.setText("Simon is up");
             handler.removeCallbacks(end_game);
             try {
