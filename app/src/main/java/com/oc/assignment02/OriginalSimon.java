@@ -80,7 +80,7 @@ public class OriginalSimon extends Activity {
     int moves = 1;
     int roundNumber = 1;
     public SoundPool sp = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
-    public int tl_sound, tr_sound, bl_sound, br_sound,game_over,high_sound;
+    public int tl_sound, tr_sound, bl_sound, br_sound,game_over,high_sound,new_sound;
     boolean AI_Turn = true;
 
     private List<Integer> AI_Choices;
@@ -111,6 +111,7 @@ public class OriginalSimon extends Activity {
         br_sound = sp.load(this, R.raw.yellow, 1);
         high_sound=sp.load(this, R.raw.high_score1, 1);
         game_over = sp.load(this, R.raw.game_over, 1);
+        new_sound = sp.load(this, R.raw.new_game2, 1);
 
         tl_btn = (Button) findViewById(R.id.button_tl);
         tr_btn = (Button) findViewById(R.id.button_tr);
@@ -132,6 +133,9 @@ public class OriginalSimon extends Activity {
         ng_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                    sp.play(new_sound, 1.0f, 1.0f, 0, 0, 1.0f);
+
                 startGame();
 
             }
@@ -338,11 +342,11 @@ public class OriginalSimon extends Activity {
         @Override
         protected Void doInBackground(Void... params) {
            int delay=1500;
-           if(roundNumber<5){
+           if(roundNumber<=4){
                delay=1500;
-           }else if(roundNumber>=5 && roundNumber<9){
+           }else if(roundNumber>4 && roundNumber<9){
                delay=750;
-            }else if(roundNumber>=9){
+            }else if(roundNumber>9){
                delay=300;
            }
             try {
