@@ -90,7 +90,7 @@ public class WarpSpeed extends Activity {
         my_file=new FileOperations(this,filename);
         my_file.setFilename(filename);
         highscore=my_file.getHighscore();
-
+        //highscore=0;
 
         AI_Choices = new ArrayList<Integer>();
         Human_Choices = new ArrayList<Integer>();
