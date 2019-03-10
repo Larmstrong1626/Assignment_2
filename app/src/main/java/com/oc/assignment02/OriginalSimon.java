@@ -132,6 +132,9 @@ public class OriginalSimon extends Activity {
         ng_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                    sp.play(new_sound, 1.0f, 1.0f, 0, 0, 1.0f);
+
                 startGame();
 
             }
@@ -140,7 +143,7 @@ public class OriginalSimon extends Activity {
         tl_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sp.play(tl_sound, 1, 1, 1, 0, 1f);
+                sp.play(tl_sound, 1, 1, 1, 0, 2f);
                 ButtonOpacity newopacity = new ButtonOpacity(handler, v);
                 newopacity.makeOpaque(handler, v);
                 human_move = 1;
@@ -154,7 +157,7 @@ public class OriginalSimon extends Activity {
         tr_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sp.play(tr_sound, 1, 1, 1, 0, 1f);
+                sp.play(tr_sound, 1, 1, 1, 0, 2f);
                 ButtonOpacity newopacity = new ButtonOpacity(handler, v);
                 newopacity.makeOpaque(handler, v);
                 human_move = 2;
@@ -171,7 +174,7 @@ public class OriginalSimon extends Activity {
             @Override
             public void onClick(View v) {
                 //playSound(threeId);
-                sp.play(bl_sound, 1, 1, 1, 0, 1f);
+                sp.play(bl_sound, 1, 1, 1, 0, 2f);
                 ButtonOpacity newopacity = new ButtonOpacity(handler, v);
                 newopacity.makeOpaque(handler, v);
                 human_move = 3;
@@ -189,7 +192,7 @@ public class OriginalSimon extends Activity {
             @Override
             public void onClick(View v) {
                 //playSound(fourId);
-                sp.play(br_sound, 1, 1, 1, 0, 1f);
+                sp.play(br_sound, 1, 1, 1, 0, 2f);
                 ButtonOpacity newopacity = new ButtonOpacity(handler, v);
                 newopacity.makeOpaque(handler, v);
                 human_move = 4;
@@ -248,7 +251,10 @@ public class OriginalSimon extends Activity {
                         if(score>highscore){
                             highscore=score;
                             //writeHighScore();
-                            sp.play(high_sound, 1, 1, 1, 0, 2.5f);
+                            newhighscore=true;
+
+                                    sp.play(high_sound, 1, 1, 1, 0, 3.0f);
+
 
                             my_file.setHighscore(score);
                             my_file.writeHighScore(score,OriginalSimon.this);
@@ -311,10 +317,11 @@ public class OriginalSimon extends Activity {
 
         @Override
         protected void onPreExecute() {
+
             turn.setText("Simon is up");
             handler.removeCallbacks(end_game);
             try {
-                Thread.sleep(300);
+                Thread.sleep(2000);
                 //turn.setText("Simon is up");
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -323,10 +330,7 @@ public class OriginalSimon extends Activity {
             tr_btn.setClickable(false);
             bl_btn.setClickable(false);
             br_btn.setClickable(false);
-           /* tl_btn.setEnabled(false);
-            tr_btn.setEnabled(false);
-            bl_btn.setEnabled(false);
-            br_btn.setEnabled(false);*/
+
             AI_Turn = true;
             current_score.setText(Integer.toString(score));
 
@@ -336,11 +340,11 @@ public class OriginalSimon extends Activity {
         @Override
         protected Void doInBackground(Void... params) {
            int delay=1500;
-           if(roundNumber<5){
+           if(roundNumber<=4){
                delay=1500;
-           }else if(roundNumber>=5 && roundNumber<9){
+           }else if(roundNumber>4 && roundNumber<9){
                delay=750;
-            }else if(roundNumber>=9){
+            }else if(roundNumber>9){
                delay=300;
            }
             try {
@@ -373,7 +377,9 @@ public class OriginalSimon extends Activity {
 
         @Override
         protected void onPostExecute(Void result) {
-            turn.setText("Your turn");
+
+             turn.setText("Your turn");
+
             tl_btn.setClickable(true);
             tr_btn.setClickable(true);
             bl_btn.setClickable(true);
@@ -394,7 +400,7 @@ public class OriginalSimon extends Activity {
     public void play_sound(int soundId) {
         if (soundId == 1) {
             soundId = tl_sound;
-            sp.play(soundId, 1, 1, 1, 0, 1f);
+            sp.play(soundId, 1, 1, 1, 0, 2f);
             tl_btn.getBackground().setAlpha(51);
             final Runnable r = new Runnable() {
                 public void run() {
@@ -408,7 +414,7 @@ public class OriginalSimon extends Activity {
         }
         if (soundId == 2) {
             soundId = tr_sound;
-            sp.play(soundId, 1, 1, 1, 0, 1f);
+            sp.play(soundId, 1, 1, 1, 0, 2f);
             tr_btn.getBackground().setAlpha(51);
             final Runnable r = new Runnable() {
                 public void run() {
@@ -422,7 +428,7 @@ public class OriginalSimon extends Activity {
         }
         if (soundId == 3) {
             soundId = bl_sound;
-            sp.play(soundId, 1, 1, 1, 0, 1f);
+            sp.play(soundId, 1, 1, 1, 0, 2f);
             bl_btn.getBackground().setAlpha(51);
             final Runnable r = new Runnable() {
                 public void run() {
@@ -435,7 +441,7 @@ public class OriginalSimon extends Activity {
         }
         if (soundId == 4) {
             soundId = br_sound;
-            sp.play(soundId, 1, 1, 1, 0, 1f);
+            sp.play(soundId, 1, 1, 1, 0, 2f);
 
             br_btn.getBackground().setAlpha(51);
             final Runnable r = new Runnable() {
