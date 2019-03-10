@@ -101,10 +101,10 @@ public class WarpSpeed extends Activity {
         high_score = (TextView) findViewById(R.id.high_score);
         high_score.setText(Integer.toString(highscore));
 
-        tl_sound = sp.load(this, R.raw.one, 1);
-        tr_sound = sp.load(this, R.raw.two, 1);
-        bl_sound = sp.load(this, R.raw.three, 1);
-        br_sound = sp.load(this, R.raw.four, 1);
+        tl_sound = sp.load(this, R.raw.blue, 1);
+        tr_sound = sp.load(this, R.raw.green, 1);
+        bl_sound = sp.load(this, R.raw.red, 1);
+        br_sound = sp.load(this, R.raw.yellow, 1);
         game_over = sp.load(this, R.raw.game_over, 1);
 
         tl_btn = (Button) findViewById(R.id.button_tl);
