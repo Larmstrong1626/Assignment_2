@@ -308,7 +308,7 @@ public class RewindSimonActivity extends Activity {
 
     //*****
     //
-    // Rewind_Computer_player is an Async Task that is called when it is Simon's turn. 
+    // Rewind_Computer_player is an Async Task that is called when it is Simon's turn.
     //
     // *****//
     public class Rewind_Computer_player extends AsyncTask<Void, Integer, Void> {
