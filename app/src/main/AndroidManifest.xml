@@ -27,7 +27,11 @@
             android:name=".RewindSimonActivity"
             android:label="RewindSimon"
             android:screenOrientation="portrait" />
-        <activity android:name=".WarpSpeed"></activity>
+        <activity android:name=".WarpSpeed"
+            android:label="WarpSpeed"
+            android:screenOrientation="portrait" />
+
+
         <activity android:name=".RewindWarpSimon"
             android:label="RewindWarpSimon"
             android:screenOrientation="portrait"/>
