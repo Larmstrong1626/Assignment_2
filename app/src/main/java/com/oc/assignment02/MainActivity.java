@@ -56,6 +56,12 @@ public class MainActivity extends Activity {
                 playWarp();
             }
         });
+        final Button play_rewindWarp = findViewById(R.id.play_btn4);
+        play_rewindWarp.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                playRewindWarp();
+            }
+        });
 
 
 
@@ -80,6 +86,12 @@ public class MainActivity extends Activity {
     public void playWarp(){
         Intent intent = new Intent(getApplicationContext(),
                 WarpSpeed.class);
+        startActivity(intent);
+    }
+
+    public void playRewindWarp(){
+        Intent intent = new Intent(getApplicationContext(),
+                RewindWarpSimon.class);
         startActivity(intent);
     }
 

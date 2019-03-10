@@ -28,6 +28,9 @@
             android:label="RewindSimon"
             android:screenOrientation="portrait" />
         <activity android:name=".WarpSpeed"></activity>
+        <activity android:name=".RewindWarpSimon"
+            android:label="RewindWarpSimon"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

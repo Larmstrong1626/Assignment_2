@@ -1,3 +1,15 @@
+/*************
+ Developer: Robert Armstrong/Justin Duff
+ App: Assignment_2
+ OriginalSimon.java
+ Tested on Samsung Galaxy 5
+ 5.1"x2.85"
+ Marshmallow 6.0.1
+ API 23
+
+ **************/
+
+
 package com.oc.assignment02;
 
 import android.app.Activity;
@@ -230,7 +242,11 @@ public class RewindSimonActivity extends Activity {
 // *****//
     public void startRewindGame() {
 
-
+        rewindTL_Btn.setEnabled(true);
+        rewindTR_Btn.setEnabled(true);
+        rewindBL_Btn.setEnabled(true);
+        rewindBR_Btn.setEnabled(true);
+        rewindNG_Btn.setEnabled(false);
 
 
                 if (Simon == null) {
