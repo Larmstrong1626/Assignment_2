@@ -214,7 +214,7 @@ public class OriginalSimon extends Activity {
         tr_btn.setEnabled(true);
         bl_btn.setEnabled(true);
         br_btn.setEnabled(true);
-        ng_btn.setEnabled(true);
+        ng_btn.setEnabled(false);
         roundNumber = 1;
         score=0;
         current_score.setText(Integer.toString(score));
