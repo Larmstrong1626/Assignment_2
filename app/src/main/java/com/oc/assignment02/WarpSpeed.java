@@ -240,7 +240,7 @@ public class WarpSpeed extends Activity {
                             highscore=score;
                             //writeHighScore();
 
-                                    //sp.play(high_sound, 1, 1, 1, 0, 1f);
+                                    sp.play(high_sound, 1, 1, 1, 0, 3f);
 
 
                             my_file.setHighscore(score);

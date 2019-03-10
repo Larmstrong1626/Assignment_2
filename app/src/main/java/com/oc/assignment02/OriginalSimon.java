@@ -248,9 +248,7 @@ public class OriginalSimon extends Activity {
                         if(score>highscore){
                             highscore=score;
                             //writeHighScore();
-
-                                    //sp.play(high_sound, 1, 1, 1, 0, 1f);
-
+                            sp.play(high_sound, 1, 1, 1, 0, 2.5f);
 
                             my_file.setHighscore(score);
                             my_file.writeHighScore(score,OriginalSimon.this);

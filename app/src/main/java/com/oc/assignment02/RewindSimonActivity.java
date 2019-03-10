@@ -30,16 +30,18 @@ import java.util.Set;
 
 public class RewindSimonActivity extends Activity {
 
+
+    //*****Buttons*****//
     private Button rewindTL_Btn;
     private Button rewindTR_Btn;
     private Button rewindBR_Btn;
     private Button rewindBL_Btn;
     private Button rewindNG_Btn;
-
+    /*****TextViews*****/
     private TextView rewind_turn;
     private TextView rewind_current_score;
     private TextView rewind_highScore;
-
+    /*****Initializing Values*****/
     int RhighScore = 0;
     int rewind_humanMove;
     int rewind_moves = 1;
@@ -55,7 +57,7 @@ public class RewindSimonActivity extends Activity {
     private List<Integer> rewind_AI_Choices;
     private List<Integer> rewind_User_Choices;
     private List<Integer> revList;
-
+    /*****High Score File*****/
     String filename = "rewindHigh_score";
 
 
@@ -73,15 +75,18 @@ public class RewindSimonActivity extends Activity {
     int greenID;
     int yellowID;
 
-
+//*****
+//
+//onCreate calls Fileoperations to store the highScore, Initializes arrays & buttons, Creates a soundpool and initializes sounds & sets up Listeners for buttons.
+//
+// *****//
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rewind);
 
         rewind_file=new FileOperations(this,filename);
         rewind_file.setFilename(filename);
-        rewind_score=rewind_file.getHighscore();
-       // readRewindHighScore();
+        RhighScore=rewind_file.getHighscore();
 
         rewind_AI_Choices = new ArrayList<Integer>();
         rewind_User_Choices = new ArrayList<Integer>();
@@ -149,7 +154,6 @@ public class RewindSimonActivity extends Activity {
         rewindTL_Btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //rewindSP.play(rewindTL_sound, 1, 1, 1, 0, 1f);
                 if (rewindSoundsLoaded.contains(blueID)) {
                     rewindSoundPool.play(blueID, 1.0f, 1.0f, 0, 0, 1.0f);
                 }
@@ -159,15 +163,12 @@ public class RewindSimonActivity extends Activity {
                 rewind_moves++;
                 Log.i("-------", "----- AI_choice -----" + rewind_AI_Choices.get(rewind_moves - 1) + "");
                 rewindCheckChoice();
-                //pc = new Computer_player();
-                //pc.execute();
             }
         });
 
         rewindTR_Btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //rewindSP.play(rewindTR_sound, 1, 1, 1, 0, 1f);
                 if (rewindSoundsLoaded.contains(greenID)) {
                     rewindSoundPool.play(greenID, 1.0f, 1.0f, 0, 0, 1.0f);
                 }
@@ -177,15 +178,11 @@ public class RewindSimonActivity extends Activity {
                 rewind_moves++;
                 Log.i("-------", "----- AI_choice -----" + rewind_AI_Choices.get(rewind_moves - 1) + "");
                 rewindCheckChoice();
-                //pc = new Computer_player();
-                //pc.execute();
             }
         });
         rewindBL_Btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //playSound(threeId);
-               // rewindSP.play(rewindBL_sound, 1, 1, 1, 0, 1f);
                 if (rewindSoundsLoaded.contains(redID)) {
                     rewindSoundPool.play(redID, 1.0f, 1.0f, 0, 0, 1.0f);
                 }
@@ -202,8 +199,6 @@ public class RewindSimonActivity extends Activity {
         rewindBR_Btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //playSound(fourId);
-               // rewindSP.play(rewindBR_sound, 1, 1, 1, 0, 1f);
                 if (rewindSoundsLoaded.contains(yellowID)) {
                     rewindSoundPool.play(yellowID, 1.0f, 1.0f, 0, 0, 1.0f);
                 }
@@ -216,7 +211,11 @@ public class RewindSimonActivity extends Activity {
             }
         });
     }
-
+//*****
+//
+//startRewindGame is activated in onCreate, when the ngButton is pressed. The pc play "Simon" is created, buttons are disabled, and the game is started.
+//
+// *****//
     public void startRewindGame() {
 
 
@@ -234,7 +233,11 @@ public class RewindSimonActivity extends Activity {
                 rewind_moves = 1;
             }
 
-
+//******
+//
+// rewindCheckChoice creates a new ArrayList that holds the reverse moves of Simon, then check the users moves against the reverse array list.
+//
+// *****//
     public void rewindCheckChoice() {
         Log.i("-------", "----- Moves -----" + rewind_moves + "");
         Log.i("-------", "----- Round -----" + rewind_roundNumber + "");
@@ -259,7 +262,6 @@ public class RewindSimonActivity extends Activity {
                     }
 
                     RhighScore=rewind_score;
-                    //writeRewindHighScore();
                     rewind_file.setHighscore(rewind_score);
                     rewind_file.writeHighScore(rewind_score,RewindSimonActivity.this);
                     rewind_highScore.setText(Integer.toString(RhighScore));
@@ -304,6 +306,11 @@ public class RewindSimonActivity extends Activity {
 
     }
 
+    //*****
+    //
+    // Rewind_Computer_player is an Async Task that is called when it is Simon's turn. 
+    //
+    // *****//
     public class Rewind_Computer_player extends AsyncTask<Void, Integer, Void> {
 
         @Override
@@ -375,8 +382,6 @@ public class RewindSimonActivity extends Activity {
 
         public void play_sound(int soundId) {
             if (soundId == 1) {
-               /* soundId = rewindTL_sound;
-                rewindSP.play(soundId, 1, 1, 1, 0, 1f);*/
                 if (rewindSoundsLoaded.contains(blueID)) {
                     rewindSoundPool.play(blueID, 1.0f, 1.0f, 0, 0, 1.0f);
                 }
@@ -392,8 +397,6 @@ public class RewindSimonActivity extends Activity {
 
             }
             if (soundId == 2) {
-               // soundId = rewindTR_sound;
-               // rewindSP.play(soundId, 1, 1, 1, 0, 1f);
                 if (rewindSoundsLoaded.contains(greenID)) {
                     rewindSoundPool.play(greenID, 1.0f, 1.0f, 0, 0, 1.0f);
                 }
@@ -409,8 +412,6 @@ public class RewindSimonActivity extends Activity {
 
             }
             if (soundId == 3) {
-             //   soundId = rewindBL_sound;
-               // rewindSP.play(soundId, 1, 1, 1, 0, 1f);
                 if (rewindSoundsLoaded.contains(redID)) {
                     rewindSoundPool.play(redID, 1.0f, 1.0f, 0, 0, 1.0f);
                 }
@@ -425,8 +426,6 @@ public class RewindSimonActivity extends Activity {
 
             }
             if (soundId == 4) {
-             //   soundId = rewindBR_sound;
-              //  rewindSP.play(soundId, 1, 1, 1, 0, 1f);
                 if (rewindSoundsLoaded.contains(yellowID)) {
                     rewindSoundPool.play(yellowID, 1.0f, 1.0f, 0, 0, 1.0f);
                 }
@@ -447,40 +446,7 @@ public class RewindSimonActivity extends Activity {
 
 
         }
-    void readRewindHighScore() {
-        Scanner scanner;
-        try {
-            FileInputStream scoreFile = openFileInput(filename);
-            scanner = new Scanner(scoreFile);
 
-            while (scanner.hasNext()) {
-                RhighScore = scanner.nextInt();
-
-            }
-            scanner.close();
-        }
-        catch (FileNotFoundException e) {
-
-            RhighScore = 0;
-        }
-    }
-
-    public void writeRewindHighScore() {
-        try {
-            FileOutputStream outputFile = openFileOutput(filename, MODE_PRIVATE);
-            OutputStreamWriter writer = new OutputStreamWriter(outputFile);
-            BufferedWriter buf = new BufferedWriter(writer);
-            PrintWriter printer = new PrintWriter(buf);
-
-            printer.println(RhighScore);
-
-            printer.close();
-
-
-        } catch (FileNotFoundException e) {
-
-        }
-    }
 
 }
 
