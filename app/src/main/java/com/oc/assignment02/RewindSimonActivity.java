@@ -102,6 +102,14 @@ public class RewindSimonActivity extends Activity {
         rewindTR_Btn = findViewById(R.id.button_rewind_tr);
         rewindBR_Btn = findViewById(R.id.button_rewind_br);
         rewindBL_Btn = findViewById(R.id.button_rewind_bl);
+        rewindTL_Btn.setClickable(false);
+        rewindTR_Btn.setClickable(false);
+        rewindBL_Btn.setClickable(false);
+        rewindBR_Btn.setClickable(false);
+        rewindTL_Btn.setEnabled(false);
+        rewindTR_Btn.setEnabled(false);
+        rewindBL_Btn.setEnabled(false);
+        rewindBR_Btn.setEnabled(false);
         rewindNG_Btn = findViewById(R.id.button_rewind_ng);
 
 
@@ -163,6 +171,7 @@ public class RewindSimonActivity extends Activity {
                 rewind_moves++;
                 Log.i("-------", "----- AI_choice -----" + rewind_AI_Choices.get(rewind_moves - 1) + "");
                 rewindCheckChoice();
+                handler.removeCallbacks(rewind_endGame);
             }
         });
 
@@ -178,6 +187,7 @@ public class RewindSimonActivity extends Activity {
                 rewind_moves++;
                 Log.i("-------", "----- AI_choice -----" + rewind_AI_Choices.get(rewind_moves - 1) + "");
                 rewindCheckChoice();
+                handler.removeCallbacks(rewind_endGame);
             }
         });
         rewindBL_Btn.setOnClickListener(new View.OnClickListener() {
@@ -192,6 +202,7 @@ public class RewindSimonActivity extends Activity {
                 rewind_moves++;
                 Log.i("-------", "----- AI_choice -----" + rewind_AI_Choices.get(rewind_moves - 1) + "");
                 rewindCheckChoice();
+                handler.removeCallbacks(rewind_endGame);
             }
 
         });
@@ -208,6 +219,7 @@ public class RewindSimonActivity extends Activity {
                 rewind_moves++;
                 Log.i("-------", "----- AI_choice -----" + rewind_AI_Choices + "");
                 rewindCheckChoice();
+                handler.removeCallbacks(rewind_endGame);
             }
         });
     }
@@ -249,43 +261,49 @@ public class RewindSimonActivity extends Activity {
         Collections.reverse(revList);
 
 
+        final Runnable r = new Runnable() {
+            public void run() {
+                if (rewind_humanMove == revList.get(rewind_moves - 1)) {
+                    if (rewind_moves == revList.size()) {
+                        rewind_roundNumber++;
+                        rewind_score++;
+                        if (rewind_score > RhighScore) {
+                            if (rewindSoundsLoaded.contains(highScoreID)) {
+                                Toast toast = Toast.makeText(getApplicationContext(),
+                                        "NEW HIGH SCORE!!", Toast.LENGTH_SHORT);
+                                toast.show();
+                                rewindSoundPool.play(highScoreID, 1.0f, 1.0f, 0, 0, 2.5f);
 
-        if (rewind_humanMove == revList.get(rewind_moves - 1)) {
-            if (rewind_moves == revList.size()) {
-                rewind_roundNumber++;
-                rewind_score++;
-                if(rewind_score>RhighScore){
-                    if (rewindSoundsLoaded.contains(highScoreID)) {
-                        rewindSoundPool.play(highScoreID, 1.0f, 1.0f, 0, 0, 2.5f);
-                        rewind_turn.setText("1");
+                            }
+
+                            RhighScore = rewind_score;
+                            rewind_file.setHighscore(rewind_score);
+                            rewind_file.writeHighScore(rewind_score, RewindSimonActivity.this);
+                            rewind_highScore.setText(Integer.toString(RhighScore));
+                        }
+                        Simon = new Rewind_Computer_player();
+                        Simon.execute();
 
                     }
+                } else {
+                    rewind_turn.setText("GAME OVER!");
+                    if (rewindSoundsLoaded.contains(gameOverID)) {
+                        rewindSoundPool.play(gameOverID, 1.0f, 1.0f, 0, 0, 1.0f);
 
-                    RhighScore=rewind_score;
-                    rewind_file.setHighscore(rewind_score);
-                    rewind_file.writeHighScore(rewind_score,RewindSimonActivity.this);
-                    rewind_highScore.setText(Integer.toString(RhighScore));
+                    }
+                    Rewind_AI_Turn = false;
+                    rewind_AI_Choices.clear();
+                    revList.clear();
+                    rewind_User_Choices.clear();
+                    rewindTR_Btn.setClickable(false);
+                    rewindTL_Btn.setClickable(false);
+                    rewindBR_Btn.setClickable(false);
+                    rewindBL_Btn.setClickable(false);
+                    rewindNG_Btn.setEnabled(true);
                 }
-                Simon = new Rewind_Computer_player();
-                Simon.execute();
-
-            }
-        } else {
-            rewind_turn.setText("GAME OVER!");
-            if (rewindSoundsLoaded.contains(gameOverID)) {
-                rewindSoundPool.play(gameOverID, 1.0f, 1.0f, 0, 0, 1.0f);
-
-            }
-            Rewind_AI_Turn = false;
-            rewind_AI_Choices.clear();
-            revList.clear();
-            rewind_User_Choices.clear();
-            rewindTR_Btn.setClickable(false);
-            rewindTL_Btn.setClickable(false);
-            rewindBR_Btn.setClickable(false);
-            rewindBL_Btn.setClickable(false);
-            rewindNG_Btn.setEnabled(true);
-        }
+            }};
+        handler.postDelayed(r, 300);
+        handler.postDelayed(rewind_endGame, 5000);
     }
 
 
@@ -316,6 +334,7 @@ public class RewindSimonActivity extends Activity {
         @Override
         protected void onPreExecute() {
             rewind_turn.setText("Simon is up");
+            handler.removeCallbacks(rewind_endGame);
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
@@ -377,6 +396,7 @@ public class RewindSimonActivity extends Activity {
             rewindBR_Btn.setClickable(true);
             Rewind_AI_Turn = false;
             rewind_moves = 0;
+            handler.postDelayed(rewind_endGame, 5000);
         }
 
 
@@ -446,6 +466,25 @@ public class RewindSimonActivity extends Activity {
 
 
         }
+    final Runnable rewind_endGame = new Runnable() {
+        public void run() {Rewind_AI_Turn = false;
+            rewind_AI_Choices.clear();
+            rewind_User_Choices.clear();
+            rewindTL_Btn.setEnabled(false);
+            rewindTR_Btn.setEnabled(false);
+            rewindBL_Btn.setEnabled(false);
+            rewindBR_Btn.setEnabled(false);
+            rewindTL_Btn.setClickable(false);
+            rewindTR_Btn.setClickable(false);
+            rewindBL_Btn.setClickable(false);
+            rewindBR_Btn.setClickable(false);
+            rewind_turn.setText("Time Expired");
+            rewindNG_Btn.setEnabled(true);
+
+
+        }
+    };
+
 
 
 }
