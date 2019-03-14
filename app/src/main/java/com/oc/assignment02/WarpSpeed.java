@@ -1,32 +1,20 @@
 package com.oc.assignment02;
-import android.content.Context;
-import android.content.Intent;
-import android.media.AudioAttributes;
-import android.media.AudioManager;
 
+import android.app.Activity;
+import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.app.Activity;
 import android.os.Handler;
 import android.util.Log;
-
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.io.BufferedWriter;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
-import java.util.Scanner;
 import java.util.Set;
 
 public class WarpSpeed extends Activity {
@@ -35,8 +23,6 @@ public class WarpSpeed extends Activity {
     public static final int S2 = R.raw.two;
     public static final int S3 = R.raw.three;
     public static final int S4 = R.raw.four;
-
-
 
 
     private Button tl_btn;
@@ -49,7 +35,7 @@ public class WarpSpeed extends Activity {
     private TextView current_score;
     private TextView high_score;
 
-    int highscore=0;
+    int highscore = 0;
 
     private final int TL_BUTTON = 0;
     private final int TR_BUTTON = 1;
@@ -66,15 +52,13 @@ public class WarpSpeed extends Activity {
     String filename = "high_score_warp";
 
 
-
-
     int human_move;
     Random r = new Random();
     int score = 0;
     int moves = 1;
     int roundNumber = 1;
     public SoundPool sp = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
-    public int tl_sound, tr_sound, bl_sound, br_sound,game_over,high_sound,new_sound;
+    public int tl_sound, tr_sound, bl_sound, br_sound, game_over, high_sound, new_sound;
     boolean AI_Turn = true;
 
     private List<Integer> AI_Choices;
@@ -87,9 +71,9 @@ public class WarpSpeed extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_warp_speed);
-        my_file=new FileOperations(this,filename);
+        my_file = new FileOperations(this, filename);
         my_file.setFilename(filename);
-        highscore=my_file.getHighscore();
+        highscore = my_file.getHighscore();
         //highscore=0;
 
         AI_Choices = new ArrayList<Integer>();
@@ -104,7 +88,7 @@ public class WarpSpeed extends Activity {
         bl_sound = sp.load(this, R.raw.red, 1);
         br_sound = sp.load(this, R.raw.yellow, 1);
         game_over = sp.load(this, R.raw.game_over, 1);
-        high_sound=sp.load(this,R.raw.high_score1,1);
+        high_sound = sp.load(this, R.raw.high_score1, 1);
         new_sound = sp.load(this, R.raw.new_game2, 1);
 
         tl_btn = (Button) findViewById(R.id.button_tl);
@@ -208,10 +192,9 @@ public class WarpSpeed extends Activity {
         br_btn.setEnabled(true);
         ng_btn.setEnabled(false);
         roundNumber = 1;
-        score=0;
+        score = 0;
         current_score.setText(Integer.toString(score));
         moves = 1;
-
 
 
     }
@@ -227,24 +210,21 @@ public class WarpSpeed extends Activity {
         final Runnable r = new Runnable() {
             public void run() {
                 if (human_move == AI_Choices.get(moves - 1)) {
-                    // moves++;
-                    //pc.execute();
 
                     if (moves == AI_Choices.size()) {
-                        //AI_Turn=true;
-                        //moves++;
+
 
                         roundNumber++;
                         score++;
-                        if(score>highscore){
-                            highscore=score;
-                            //writeHighScore();
+                        if (score > highscore) {
+                            highscore = score;
 
-                                    sp.play(high_sound, 1, 1, 1, 0, 3f);
+
+                            sp.play(high_sound, 1, 1, 1, 0, 3f);
 
 
                             my_file.setHighscore(score);
-                            my_file.writeHighScore(score,WarpSpeed.this);
+                            my_file.writeHighScore(score, WarpSpeed.this);
                             high_score.setText(Integer.toString(highscore));
                         }
                         pc = new Computer_player();
@@ -270,7 +250,8 @@ public class WarpSpeed extends Activity {
                     sp.play(game_over, 1, 1, 1, 0, 1f);
                 }
 
-            }};
+            }
+        };
         handler.postDelayed(r, 10);
         handler.postDelayed(end_game, 5000);
     }
@@ -303,7 +284,6 @@ public class WarpSpeed extends Activity {
     public class Computer_player extends AsyncTask<Void, Integer, Void> {
 
 
-
         @Override
         protected void onPreExecute() {
             turn.setText("Simon is up");
@@ -327,13 +307,13 @@ public class WarpSpeed extends Activity {
 
         @Override
         protected Void doInBackground(Void... params) {
-            int delay=300;
-            if(roundNumber<5){
-                delay=300;
-            }else if(roundNumber>=5 && roundNumber<9){
-                delay=200;
-            }else if(roundNumber>=9){
-                delay=100;
+            int delay = 300;
+            if (roundNumber < 5) {
+                delay = 300;
+            } else if (roundNumber >= 5 && roundNumber < 9) {
+                delay = 200;
+            } else if (roundNumber >= 9) {
+                delay = 100;
             }
             try {
                 AI_Turn = true;
@@ -375,7 +355,7 @@ public class WarpSpeed extends Activity {
             bl_btn.setEnabled(true);
             br_btn.setEnabled(true);
             AI_Turn = false;
-            moves=0;
+            moves = 0;
             handler.postDelayed(end_game, 5000);
 
         }
@@ -445,10 +425,9 @@ public class WarpSpeed extends Activity {
     }
 
 
-
-
     final Runnable end_game = new Runnable() {
-        public void run() {AI_Turn = false;
+        public void run() {
+            AI_Turn = false;
             AI_Choices.clear();
             Human_Choices.clear();
             tl_btn.setEnabled(false);
