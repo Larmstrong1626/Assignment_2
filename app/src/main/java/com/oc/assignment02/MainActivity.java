@@ -63,8 +63,20 @@ public class MainActivity extends Activity {
             }
         });
 
+        Button rules = findViewById(R.id.rules_btn);
+        rules.setOnClickListener(new View.OnClickListener(){
+                public void onClick(View v){
+                Rules();
+            }
+        });
 
 
+
+    }
+    public void Rules(){
+        Intent intent = new Intent(getApplicationContext(),
+                rules_activity.class);
+        startActivity(intent);
     }
 
     public void playOriginal(){
